@@ -262,7 +262,7 @@ export default {
         this.ProUpdated = response.data.Updated
         this.username = response.data.Creator.Username
         this.user_id = response.data.Creator.Id
-        this.user_avatar = "http://localhost:8080/_static/user/" + this.user_id + "/avatar.png?time=" + new Date().getTime();
+        this.user_avatar = "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/user/" + this.user_id + "/avatar.png?time=" + new Date().getTime();
         this.description = response.data.Description
       })
     },
@@ -280,7 +280,7 @@ export default {
     downloadFile(id, filename) {
       // 实现下载文件的逻辑
       // 打开新窗口
-      window.open("http://localhost:8080/_static/project/" + id + "/" + filename)
+      window.open("http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + "/" + filename)
     },
     renameFile(id, filename) {
       // 实现重命名文件的逻辑

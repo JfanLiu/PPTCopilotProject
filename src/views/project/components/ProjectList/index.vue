@@ -59,7 +59,7 @@ export default {
 
   methods: {
     getImageUrl(id) {
-      return "http://localhost:8080/_static/project/" + id + "/cover.png?t=" + new Date().getTime()
+      return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + "/cover.png?t=" + new Date().getTime()
     },
 
     handleCommand(id) {

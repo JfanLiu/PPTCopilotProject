@@ -2,7 +2,7 @@
   <!--  显示外部界面-->
 
   <div id="app">
-    <iframe src="http://localhost:7777" id="pptist-frame" frameborder="0" @load="handleIframeLoad" width="100%"
+    <iframe ref="myIframe" id="pptist-frame" frameborder="0" @load="handleIframeLoad" width="100%"
             height="100%"></iframe>
   </div>
 </template>
@@ -19,10 +19,16 @@ import { Loading } from 'element-ui'
 export default {
   props: ['project_id', 'file_name'], // 接收父组件传递的参数
   data() {
-    return {}
+    return {
+    }
+  },
+  created() {
+    // 使用环境变量构建URL
+    this.editorUrl = `http://${process.env.VUE_APP_EDITOR_IP || 'localhost'}:7777`;
   },
   mounted() {
-
+    // 在 mounted 钩子中通过 ref 访问 <iframe> 元素，并修改其 src 属性
+    this.$refs.myIframe.src = `http://${process.env.VUE_APP_EDITOR_IP || 'localhost'}:7777`;
   },
   methods: {
     handleIframeLoad() {
@@ -41,14 +47,14 @@ export default {
         console.log(res)
         loadingInstance.close()
         // print length
-        iframeWindow.postMessage(res, 'http://localhost:7777');
+        iframeWindow.postMessage(res, this.editorUrl);
       }).catch(err => {
         loadingInstance.close()
         console.log(err)
       })
 
       window.addEventListener('message', function(event) {
-        if (event.origin !== 'http://localhost:7777') return
+        if (event.origin !== this.editorUrl) return
         const blobStr = event.data;
         console.log(JSON.stringify(event))
         const blob = new Blob([blobStr], {type: '*'});
