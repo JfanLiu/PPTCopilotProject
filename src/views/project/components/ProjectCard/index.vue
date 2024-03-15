@@ -4,7 +4,7 @@
       <img :src="image" alt="">
     </div>
     <h3>{{ title }}</h3>
-    <p>{{ Updated }}</p>
+    <p> <t-tag :class="{ 'public-tag': visible, 'private-tag': !visible }">{{ visible ? 'public' : 'private' }}</t-tag> {{ Updated }}</p>
     <div class="project-actions">
       <t-button type="primary" @click="openFile">打开</t-button>
       <div v-if="edit">
@@ -57,6 +57,10 @@ export default {
       type: String,
       default: ''
     },
+    visible: {
+      type: Boolean,
+      required: true
+    },
     Updated: {
       type: String,
       // 获取当前日期，不需要小时
@@ -102,6 +106,16 @@ export default {
   border-radius: 4px;
   padding: 20px;
   margin: 10px;
+}
+
+.public-tag {
+  background-color: #ccebff;
+  color: #333;
+}
+
+.private-tag {
+  background-color: #f0f0f0;
+  color: #333;
 }
 
 .project-card:hover {

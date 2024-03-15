@@ -9,14 +9,14 @@ export function getProject(id) {
 
 export function getProjectList(id) {
   return request({
-    url: '/user/'+id+'/project',
+    url: '/user/' + id + '/project',
     method: 'get',
   })
 }
 
 export function getAllProject() {
   return request({
-    url: '/project',
+    url: '/project/public',
     method: 'get',
   })
 }
@@ -69,7 +69,7 @@ export function uploadFile(id, data) {
 
 export function deleteFile(id, filename) {
   return request({
-    url: '/project/' + id + '/file/'+filename,
+    url: '/project/' + id + '/file/' + filename,
     method: 'delete',
   })
 }
@@ -102,14 +102,14 @@ export function checkLikePorject(id) {
   })
 }
 
-export function likeProject(id){
+export function likeProject(id) {
   return request({
     url: '/project/' + id + '/star',
     method: 'post',
   })
 }
 
-export function unlikeProject(id){
+export function unlikeProject(id) {
   return request({
     url: '/project/' + id + '/star',
     method: 'delete',

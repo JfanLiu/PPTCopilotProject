@@ -3,7 +3,7 @@
     <div class="card-view">
       <el-row>
         <el-col v-for="item in projectList" :key="item.Id" :span="6">
-          <ProjectCard :image="getImageUrl(item.Id)" :title="item.Name" :id="item.Id" :handle-delete="handleDelete"
+          <ProjectCard :image="getImageUrl(item.Id)" :title="item.Name" :visible="item.Visible" :id="item.Id" :handle-delete="handleDelete"
             :handle-rename="handleRename" :handle-upload="handleUpload" :edit="edit" />
         </el-col>
       </el-row>
