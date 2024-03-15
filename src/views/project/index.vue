@@ -7,7 +7,14 @@
           <t-button class="button_type pan-btn blue-btn" @click="handleCreate">新建项目</t-button>
           <t-dialog header="新建项目" body="对话框内容" :visible.sync="createVisible" @confirm="onCreateConfirm"
             :confirmOnEnter="true" :onConfirm="onCreateConfirmAnother" :onCancel="onCreateCancel" :onClose="createClose">
+            <t-label>项目名称</t-label>
             <t-input v-model="newProjectName" placeholder="请输入新的项目名称"></t-input>
+            <br>
+            <t-lable>项目可见性</t-lable>
+            <t-select v-model="newProjectVisible" placeholder="请选择项目可见性">
+              <t-option value="public">public</t-option>
+              <t-option value="private">private</t-option>
+            </t-select>
           </t-dialog>
         </el-row>
         <el-row>
@@ -30,6 +37,7 @@ export default {
       projectList: [],
       edit: true,
       createVisible: false,
+      newProjectVisible: '',
       newProjectName: '',
     }
   },
@@ -60,7 +68,8 @@ export default {
       console.log('confirm another')
       createProject({
         'name': this.newProjectName,
-        'description': '暂无简介'
+        'description': '暂无简介',
+        'visible': this.newProjectVisible === 'public'
       }).then(response => {
         console.log(response)
         this.loadData();
