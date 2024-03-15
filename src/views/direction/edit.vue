@@ -188,32 +188,32 @@ export default {
       const loadingInstance = Loading.service()
 
       update_outline(this.outline_id, {
-        'outline_data' : this.convert_tree_to_xml(this.data)
+        'outline' : this.convert_tree_to_xml(this.data)
       }).then(res => {
         console.log("修改大纲成功")
+        gen_ppt({
+          'outline_id': parseInt(this.outline_id),
+          'template_id': parseInt(this.$route.query.template_id),
+          'project_id': parseInt(this.$route.query.project_id),
+          'file_name': this.$route.query.file_name,
+        }).then(res => {
+          loadingInstance.close()
+          console.log(res)
+          this.$router.push({
+            path: '/pptist/index',
+            query: {
+              project_id: this.$route.query.project_id,
+              file_name: this.$route.query.file_name,
+            }
+          })
+        }).catch(err => {
+          loadingInstance.close()
+          console.log(err)
+        })
       }).catch(err => {
         console.log(err)
       })
 
-      gen_ppt({
-        'outline_id': parseInt(this.outline_id),
-        'template_id': parseInt(this.$route.query.template_id),
-        'project_id': parseInt(this.$route.query.project_id),
-        'file_name': this.$route.query.file_name,
-      }).then(res => {
-        loadingInstance.close()
-        console.log(res)
-        this.$router.push({
-          path: '/pptist/index',
-          query: {
-            project_id: this.$route.query.project_id,
-            file_name: this.$route.query.file_name,
-          }
-        })
-      }).catch(err => {
-        loadingInstance.close()
-        console.log(err)
-      })
     },
     convert_tree_to_xml (tree_data){
       // 遍历data，获取label，递归遍历children
@@ -225,11 +225,16 @@ export default {
       for(var i=0;i<data.children.length;i++){
         // 在根节点下创建子节点
         const child = document.createElement(slide_name)
+        const childData = data.children[i];
+        
+        // 添加 class 属性到 section 元素
+        child.className = childData.class;
 
-        for(var j =0 ;j<data.children[i].children.length;j++) {
-          const my_Element_dom = document.createElement('p')
-          my_Element_dom.innerTextnerHTML = data.children[i].children[j].label
-          child.appendChild(my_Element_dom)
+        for(var j =0 ;j<childData.children.length;j++) {
+          const label = childData.children[j].label;
+          const paragraph = document.createElement('p');
+          paragraph.innerText  = label
+          child.appendChild(paragraph)
         }
 
         top_dom.appendChild(child)
@@ -289,6 +294,10 @@ export default {
         name = 'Slide'
       } else {
         name = 'New Item'
+        if(node.data.children.length >= 6){
+          this.$message.error("一张slide不能多于6个item描述")
+          return
+        }
       }
       const newChild = {id: id++, label: name, 'edit': false, 'original_label': 'new item', children: []}
       if (!node.data.children) {
@@ -365,7 +374,8 @@ export default {
             render_data[0].children.push({
               id: id++,
               label: 'Slide',
-              children: []
+              children: [],
+              class: slide.classList.value
             })
 
             // 注意：这是遍历直接子级元素

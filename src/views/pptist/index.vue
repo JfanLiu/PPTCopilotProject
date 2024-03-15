@@ -34,7 +34,8 @@ export default {
     handleIframeLoad() {
 
       const loadingInstance = Loading.service()
-
+      // 保存 editorUrl 到局部变量
+      const editorUrl = this.editorUrl;
       // 导入选定文件
       let matches = document.cookie.match(/token=([^;]+)/);
       let token = (matches ? matches[1] : null);
@@ -54,7 +55,8 @@ export default {
       })
 
       window.addEventListener('message', function(event) {
-        if (event.origin !== this.editorUrl) return
+        if (event.origin !== editorUrl) return
+        // console.log(event.data)
         const blobStr = event.data;
         console.log(JSON.stringify(event))
         const blob = new Blob([blobStr], {type: '*'});
