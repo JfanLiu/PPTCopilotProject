@@ -45,9 +45,9 @@ export default {
       getStaticFile(projectId, fileName).then(res => {
         console.log("this is pptits")
         console.log(res)
-        loadingInstance.close()
         // print length
         iframeWindow.postMessage(res, this.editorUrl);
+        loadingInstance.close()
       }).catch(err => {
         loadingInstance.close()
         console.log(err)

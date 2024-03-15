@@ -14,18 +14,30 @@
           :allow-drop="allowDrop"
           :allow-drag="allowDrag"
           :expand-on-click-node="false"
+          @node-click = "handleClick"
         >
               <span slot-scope="{ node, data }" class="custom-tree-node">
 
                 <span style="align-items: start">
                   <template v-if="data.edit">
-                    <el-input v-model="data.label" class="edit-input" size="mini"/>
+                    <el-input v-model="data.label" class="edit-input" 
+                    style="width: 180%"
+                    size="mini"/>
                     <el-button
                       icon="el-icon-refresh"
                       type="text"
                       @click="cancelEdit(data)"
                     >
                       cancel
+                    </el-button>
+                    <el-button
+                      v-if="data.edit&&!data.is_slide&&!data.is_slides&&node.level===3"
+                      icon="el-icon-circle-check-outline"
+                      @click="confirmEdit(data)"
+                      type="text"
+                      class="comfirm_button"
+                    >
+                      Ok
                     </el-button>
                   </template>
                   <span v-else>
@@ -35,18 +47,9 @@
                   </span>
                 </span>
 
-                <span style="align-items: end">
+                <span style="align-items: end; margin-left: 15px;">
                   <el-button
-                    v-if="data.edit&&!data.is_slide&&!data.is_slides&&node.level===3"
-                    icon="el-icon-circle-check-outline"
-                    @click="confirmEdit(data)"
-                    type="text"
-                    class="comfirm_button"
-                  >
-                    Ok
-                  </el-button>
-                  <el-button
-                    v-else-if="!data.is_slide&&!data.is_slides&&node.level===3"
+                    v-if="!data.edit&&!data.is_slide&&!data.is_slides&&node.level===3"
                     type="text"
                     icon="el-icon-edit"
                     @click="f(data)"
@@ -62,7 +65,7 @@
                     Append
                   </el-button>
                   <el-button
-                    v-if="node.level!==1"
+                    v-if="node.level!==1 && !data.edit"
                     type="text"
                     class="comfirm_button"
                     @click="() => remove(node, data)"
@@ -79,7 +82,7 @@
 </template>
 <script>
 
-import {genOutline, gen_ppt} from "@/api/gpt";
+import {genOutline, gen_ppt, update_outline} from "@/api/gpt";
 import {Loading} from "element-ui";
 
 let id = 1000
@@ -134,24 +137,24 @@ export default {
     }
   },
   created() {
-    // const is_debug = false
-    // if(is_debug){
-    //   this.render_data = this.update_source_xml_data_to_render_data(this.source_xml_data)
-    //   this.dfs(this.render_data)
-    //   console.log(JSON.stringify(this.render_data, ' ', 2))
-    //
-    //   this.loading = false
-    //
-    //   this.data = this.render_data
-    //
-    //   const d = this.convert_tree_to_xml(this.render_data)
-    //
-    //   console.log(d)
-    //
-    //   this.outline_id = 2
-    //
-    //   return
-    // }
+    const is_debug = false
+    if(is_debug){
+      this.render_data = this.update_source_xml_data_to_render_data(this.source_xml_data)
+      this.dfs(this.render_data)
+      console.log(JSON.stringify(this.render_data, ' ', 2))
+    
+      this.loading = false
+    
+      this.data = this.render_data
+    
+      const d = this.convert_tree_to_xml(this.render_data)
+    
+      console.log(d)
+    
+      this.outline_id = 2
+    
+      return
+    }
 
     // 获取路由参数
     this.topic = this.$route.query.topic
@@ -183,6 +186,15 @@ export default {
     createPPT()
     {
       const loadingInstance = Loading.service()
+
+      update_outline(this.outline_id, {
+        'outline_data' : this.convert_tree_to_xml(this.data)
+      }).then(res => {
+        console.log("修改大纲成功")
+      }).catch(err => {
+        console.log(err)
+      })
+
       gen_ppt({
         'outline_id': parseInt(this.outline_id),
         'template_id': parseInt(this.$route.query.template_id),
@@ -235,10 +247,13 @@ export default {
     allowDrag(draggingNode) {
       return draggingNode.data.label.indexOf('Level three 3-1-1') === -1
     },
+    // 用来给节点加属性，如edit,is_slide等
     dfs(node) {
       if (!Array.isArray(node)) {
         this.$set(node, 'edit', false)
         this.$set(node, 'original_label', node.label)
+        // 文本元素的lable就是文本内容
+        // slides元素的lable就是slides
         let is_slides = false
         let is_slide = false
         if (node.label === 'Slides') {
@@ -314,8 +329,13 @@ export default {
         type: 'success'
       })
     },
-    handleClick(tab, event) {
-      console.log(tab, event)
+    // handleClick(tab, event) {
+    //   console.log(tab, event)
+    // },
+    handleClick(data,node) {
+      //console.log(node)
+      //console.log(data)
+      // data.edit = true
     },
     update_source_xml_data_to_render_data(xml) {
       // 功能：将xml转换为前端能渲染的json
@@ -382,7 +402,7 @@ export default {
 }
 
 .custom-tree-node {
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   align-items: center;
   justify-content: space-between;

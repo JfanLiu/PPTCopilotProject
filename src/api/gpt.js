@@ -15,3 +15,11 @@ export function gen_ppt(data) {
     data
   })
 }
+
+export function update_outline(outline_id, data) {
+  return request({
+    url: '/gpt/outline/' + outline_id,
+    method: 'post',
+    data
+  })
+}
