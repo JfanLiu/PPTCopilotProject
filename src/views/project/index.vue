@@ -9,6 +9,7 @@
             :confirmOnEnter="true" :onConfirm="onCreateConfirmAnother" :onCancel="onCreateCancel" :onClose="createClose">
             <t-label>项目名称</t-label>
             <t-input v-model="newProjectName" placeholder="请输入新的项目名称"></t-input>
+            <span v-if="showNameErr" style="color: red;">项目名太短</span>
             <br>
             <t-lable>项目可见性</t-lable>
             <t-select v-model="newProjectVisible" placeholder="请选择项目可见性">
@@ -37,8 +38,9 @@ export default {
       projectList: [],
       edit: true,
       createVisible: false,
-      newProjectVisible: '',
+      newProjectVisible: 'public',
       newProjectName: '',
+      showNameErr: false,
     }
   },
   mounted() {
@@ -60,12 +62,23 @@ export default {
     },
     handleCreate() {
       this.createVisible = true;
+      this.showNameErr = false
+      this.newProjectName = ''
+      this.newProjectVisible = 'public'
     },
     onCreateConfirm() {
       console.log('confirm')
     },
     onCreateConfirmAnother() {
       console.log('confirm another')
+      if(this.newProjectName.length < 3){
+        console.log('项目名太短')
+        this.showNameErr = true
+        return
+      }
+      else{
+        this.showNameErr = false
+      }
       createProject({
         'name': this.newProjectName,
         'description': '暂无简介',
@@ -77,6 +90,8 @@ export default {
           type: 'success',
           message: '项目' + this.newProjectName + '添加成功'
         })
+      }).catch((err) => {
+          console.log(err)
       }).finally(() => {
         this.createVisible = false;
       })

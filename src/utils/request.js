@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getToken, setToken } from '@/utils/auth'
 
 const service = axios.create({
   baseURL: 'http://'+process.env.VUE_APP_BACKEND_IP+':8080',
@@ -16,6 +16,7 @@ service.interceptors.request.use(
     if (store.getters.token) {
       // 让每个请求携带自定义token
       config.headers['token'] = getToken()
+      console.log(config.headers['token'])
     }
     return config
   },
@@ -45,7 +46,7 @@ service.interceptors.response.use(
         type: 'error',
         duration: 5 * 1000
       })
-
+      
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
       return res
