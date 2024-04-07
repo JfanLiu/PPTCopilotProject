@@ -95,8 +95,8 @@ export default {
     };
 
     const checkcode = (rule, value, callback) => {
-      if (value.length < 36) {
-        callback(new Error('验证码格式错误'));
+      if (value.length != 6) {
+        callback(new Error('验证码格式错误, 须为6个字符'));
       } else {
         callback();
       }
