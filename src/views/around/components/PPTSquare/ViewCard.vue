@@ -27,7 +27,7 @@ import {
     ShareIcon,
 } from 'tdesign-icons-vue';
 export default {
-    name: "ProjectViewList",
+    name: "ViewCard",
     components: {
         HeartFilledIcon,
     },
