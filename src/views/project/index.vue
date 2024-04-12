@@ -1,28 +1,50 @@
 <template>
   <div class="project-container">
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <el-row>
-          <span>项目列表</span>
-          <t-button class="button_type pan-btn blue-btn" @click="handleCreate">新建项目</t-button>
-          <t-dialog header="新建项目" body="对话框内容" :visible.sync="createVisible" @confirm="onCreateConfirm"
-            :confirmOnEnter="true" :onConfirm="onCreateConfirmAnother" :onCancel="onCreateCancel" :onClose="createClose">
-            <t-label>项目名称</t-label>
-            <t-input v-model="newProjectName" placeholder="请输入新的项目名称"></t-input>
-            <span v-if="showNameErr" style="color: red;">项目名太短</span>
-            <br>
-            <t-lable>项目可见性</t-lable>
-            <t-select v-model="newProjectVisible" placeholder="请选择项目可见性">
-              <t-option value="public">public</t-option>
-              <t-option value="private">private</t-option>
-            </t-select>
-          </t-dialog>
-        </el-row>
-        <el-row>
-          <ProjectList :project-list="this.projectList" :edit="this.edit" />
-        </el-row>
-      </div>
-    </el-card>
+    <el-container>
+      <el-aside width="25%">
+        <el-card>
+          <t-row justify="center">
+            <div class="avatar-container">
+              <t-avatar :image="avatar_url" size="100%"></t-avatar>
+            </div>
+          </t-row>
+          <t-divider>PPTCopilot</t-divider>
+          <t-row>
+            <t-descriptions title="个人信息" layout="vertical">
+              <t-descriptions-item label="用户名">{{ name }}</t-descriptions-item>
+              <t-descriptions-item label="描述">{{ description || "这个人很懒，什么也没留下"  }}</t-descriptions-item>
+              <t-descriptions-item label="ID">{{id}}</t-descriptions-item>
+              <t-descriptions-item label="Address">Shenzhen Penguin Island D1 4A Mail Center</t-descriptions-item>
+            </t-descriptions>
+          </t-row>
+        </el-card>
+      </el-aside>
+      <el-main>
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <el-row>
+              <span>项目列表</span>
+              <t-button class="button_type pan-btn blue-btn" @click="handleCreate">新建项目</t-button>
+              <t-dialog header="新建项目" body="对话框内容" :visible.sync="createVisible" @confirm="onCreateConfirm"
+                :confirmOnEnter="true" :onConfirm="onCreateConfirmAnother" :onCancel="onCreateCancel" :onClose="createClose">
+                <t-label>项目名称</t-label>
+                <t-input v-model="newProjectName" placeholder="请输入新的项目名称"></t-input>
+                <span v-if="showNameErr" style="color: red;">项目名太短</span>
+                <br>
+                <t-lable>项目可见性</t-lable>
+                <t-select v-model="newProjectVisible" placeholder="请选择项目可见性">
+                  <t-option value="public">public</t-option>
+                  <t-option value="private">private</t-option>
+                </t-select>
+              </t-dialog>
+            </el-row>
+            <el-row>
+              <ProjectList :project-list="this.projectList" :edit="this.edit" />
+            </el-row>
+          </div>
+        </el-card>
+      </el-main>
+    </el-container>
   </div>
 </template>
 <script>
@@ -46,10 +68,11 @@ export default {
   mounted() {
     this.loadData();
   },
+  created() {
+    this.avatar_url = "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/user/" + this.id + "/avatar.png?time=" + new Date().getTime();
+  },
   computed: {
-    ...mapGetters([
-      'id',
-    ])
+    ...mapGetters(["id","name","description"])
   },
   methods: {
     getImageUrl(id) {
@@ -113,6 +136,11 @@ export default {
 }
 </script>
 <style>
+.avatar-container {
+  width: 80%;
+  aspect-ratio: 1;
+}
+
 .button_type {
   background: rgb(31, 136, 241);
   color: white;
