@@ -6,10 +6,20 @@
     <div class="right-menu">
       <div class="avatar-wrapper">
         <t-space align="center" :separator="separator">
-          <t-button variant="outline" theme="primary" @click="handlegotoSearch" round>
+          <t-input 
+            id="searchInput"
+            v-model="search_msg" 
+            placeholder="搜索PPT"
+            :status="searchStatus()"
+            :tips="searchTips()">
+            <template #suffixIcon>
+              <SearchIcon :style="{ cursor: 'pointer' }" @click="handleSearch" />
+            </template>
+          </t-input>
+          <!-- <t-button variant="outline" theme="primary" @click="handlegotoSearch" round>
             <SearchIcon slot="icon" />
             搜索
-          </t-button>
+          </t-button> -->
           <t-button variant="outline" theme="primary" @click="handlegotoProjects" round>
             <HomeIcon slot="icon" />
             我的
@@ -39,6 +49,8 @@ import {
 export default {
   data() {
     return {
+      search_init: 0,
+      search_msg: "",
       img_url: "",
     };
   },
@@ -59,6 +71,23 @@ export default {
     },
     handlegotoSearch() {
       this.$router.push("/index");
+    },
+    handleSearch() {
+      console.log('搜索PPT')
+      console.log(this.search_msg)
+      this.search_init = 0
+      // this.$router.push("/index");
+    },
+    searchStatus() {
+      const status = (this.search_init && this.search_msg.trim() === '') ? 'error' : ''
+      if (this.search_msg.trim() !== '') {
+        this.search_init = 1
+      }
+      return status
+    },
+    searchTips() {
+      const tips = (this.search_init && this.search_msg.trim() === '') ? '请输入PPT名称' : ''
+      return tips
     },
 
     handlegotoProjects() {
