@@ -1,20 +1,26 @@
 <template>
   <div class="project-card">
-    <div class="project-image">
-      <img :src="image" alt="">
-    </div>
-    <h3>{{ title }}</h3>
-    <p> <t-tag :class="{ 'public-tag': visible, 'private-tag': !visible }">{{ visible ? 'public' : 'private' }}</t-tag> {{ Updated }}</p>
-    <div class="project-actions">
-      <t-button type="primary" @click="openFile">打开</t-button>
-      <div v-if="edit">
-        <t-dropdown :options="options">
-          <t-button variant="outline">
-            更多
-          </t-button>
-        </t-dropdown>
-      </div>
-    </div>
+    <el-container>
+      <el-aside>
+        <div class="project-image">
+          <img :src="image" alt="">
+        </div>
+      </el-aside>
+      <el-main>
+        <h3>{{ title }}</h3>
+        <p> <t-tag :class="{ 'public-tag': visible, 'private-tag': !visible }">{{ visible ? 'public' : 'private' }}</t-tag> {{ Updated }}</p>
+        <div class="project-actions">
+          <t-button type="primary" @click="openFile">打开</t-button>
+          <div v-if="edit">
+            <t-dropdown :options="options">
+              <t-button variant="outline">
+                更多
+              </t-button>
+            </t-dropdown>
+          </div>
+        </div>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
