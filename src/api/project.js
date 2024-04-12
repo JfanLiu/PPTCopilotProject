@@ -28,6 +28,13 @@ export function getFile(id) {
   })
 }
 
+export function getAllPublic() {
+  return request({
+    url: '/ppt/get_all_public',
+    method: 'get',
+  })
+}
+
 export function renameFile(id, data) {
   return request({
     url: '/project/' + id + '/file/update_name',

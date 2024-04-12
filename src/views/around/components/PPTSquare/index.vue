@@ -4,7 +4,7 @@
             <h1>{{title}}</h1>
             <t-divider></t-divider>
             <el-row>
-                <el-col v-for="item in projectList" :key="item.Id" :span="6">
+                <el-col v-for="item in pptList" :key="item.Id" :span="6">
                     <ViewCard :image="getImageUrl(item.Id)" :title="item.Name" :id="item.Id" :edit="edit"
                         :star="item.Star" />
                 </el-col>
@@ -13,23 +13,24 @@
     </div>
 </template>
 <script>
-import { getAllProject } from "@/api/project";
+import { getAllPublic } from "@/api/project";
 import ViewCard from "@/views/around/components/PPTSquare/ViewCard.vue";
 export default {
     name: "PPTSquare",
     components: { ViewCard },
     data() {
         return {
-            projectList: [],
+            pptList: [],
             edit: false,
             title: "PPT广场"
         }
     },
     created() {
-        getAllProject().then(response => {
-            this.projectList = response.data;
+        getAllPublic().then(response => {
+            console.log(response)
+            this.pptList = response.data;
             // 随机排序
-            this.projectList.sort(() => Math.random() - 0.5);
+            this.pptList.sort(() => Math.random() - 0.5);
         })
     },
     methods: {
