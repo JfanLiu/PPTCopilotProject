@@ -4,7 +4,7 @@
       <div class="dashboard-container">
         <img src="https://github.com/rumengkai/awesome-vue/assets/91320586/83f64d27-20a7-42e7-b6a4-30d828ff4365" 
           class="user-avatar1" @click="handlegotoDashboard" />
-        <span>{{ this.$route.path }}</span>
+        <span @click="handlegotoDashboard">Home Page</span>
       </div>
     </div>
 
@@ -141,6 +141,12 @@ export default {
 
       span {
         font-size: 28px;
+        cursor: pointer;
+        text-shadow: 2px 2px 4px hsla(0, 0, 0, 0.2);
+        background: linear-gradient(to right, #ff8a00, #e52e71);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
       }
     }
   }
