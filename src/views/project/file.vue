@@ -17,7 +17,7 @@
                 </t-form>
                 <span slot="footer" class="dialog-footer">
                   <t-button @click="dialogFormVisible = false">取消</t-button>
-                  <t-button type="primary" @click="goto_direction">确认</t-button>
+                  <t-button type="primary" @click="gotoDirection">确认</t-button>
                 </span>
               </t-dialog>
               <t-button type="primary" @click="handleCreate">
@@ -245,7 +245,7 @@ export default {
         message: '复制分享链接成功'
       })
     },
-    goto_direction() {
+    gotoDirection() {
       this.dialogFormVisible = false
       this.$router.push({
         path: '/direction/index',
