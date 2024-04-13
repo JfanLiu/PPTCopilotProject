@@ -1,51 +1,18 @@
 <template>
-  <el-card style="margin-bottom:20px;">
-    <div slot="header" class="clearfix">
-      <span>About me</span>
-    </div>
-
-    <div class="user-profile">
-      <div class="box-center">
-        <img :src=avatar_url width="100px" height="100px" class="user-avatar" />
+  <el-card>
+    <t-row justify="center">
+      <div class="avatar-container">
+        <t-avatar :image="avatar_url" size="100%"></t-avatar>
       </div>
-      <div class="box-center">
-        <div class="user-name text-center">{{ name }}</div>
-        <!--        <div class="user-role text-center text-muted">{{ user.role | uppercaseFirst }}</div>-->
-      </div>
-    </div>
-
-    <div class="user-bio">
-      <div class="user-education user-bio-section">
-        <div class="user-bio-section-header"><svg-icon icon-class="个人签名" /><span>个人签名</span></div>
-        <div class="user-bio-section-body">
-          <div class="text-muted">
-            {{ this.description || "这个人很懒，什么也没留下"  }}
-          </div>
-        </div>
-      </div>
-
-<!--      <div class="user-skills user-bio-section">-->
-<!--        <div class="user-bio-section-header"><svg-icon icon-class="自我评价" /><span>自我评价</span></div>-->
-<!--        <div class="user-bio-section-body">-->
-<!--          <div class="progress-item">-->
-<!--            <span>项目经验</span>-->
-<!--            <el-progress :percentage="70" />-->
-<!--          </div>-->
-<!--          <div class="progress-item">-->
-<!--            <span>项目美观度</span>-->
-<!--            <el-progress :percentage="78" />-->
-<!--          </div>-->
-<!--          <div class="progress-item">-->
-<!--            <span>项目整体性</span>-->
-<!--            <el-progress :percentage="62" />-->
-<!--          </div>-->
-<!--          <div class="progress-item">-->
-<!--            <span>项目动画流畅度</span>-->
-<!--            <el-progress :percentage="100" status="success" />-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-    </div>
+    </t-row>
+    <t-divider>PPTCopilot</t-divider>
+    <t-row>
+      <t-descriptions title="个人信息" layout="vertical">
+        <t-descriptions-item label="用户名">{{ name }}</t-descriptions-item>
+        <t-descriptions-item label="描述">{{ description || "这个人很懒，什么也没留下"  }}</t-descriptions-item>
+        <t-descriptions-item label="ID">{{ id }}</t-descriptions-item>
+      </t-descriptions>
+    </t-row>
   </el-card>
 </template>
 

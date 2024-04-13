@@ -11,15 +11,15 @@
             v-model="search_msg" 
             placeholder="搜索PPT"
             :status="searchStatus()"
-            :tips="searchTips()">
+            :tips="searchTips()"
+            :style="{ width: '400px' }"
+            @focus="is_focused=1"
+            @blur="is_focused=0"
+            @enter="handleSearch">
             <template #suffixIcon>
               <SearchIcon :style="{ cursor: 'pointer' }" @click="handleSearch" />
             </template>
           </t-input>
-          <!-- <t-button variant="outline" theme="primary" @click="handlegotoSearch" round>
-            <SearchIcon slot="icon" />
-            搜索
-          </t-button> -->
           <t-button variant="outline" theme="primary" @click="handlegotoProjects" round>
             <HomeIcon slot="icon" />
             我的
@@ -49,7 +49,7 @@ import {
 export default {
   data() {
     return {
-      search_init: 0,
+      is_focused: 0,
       search_msg: "",
       img_url: "",
     };
@@ -73,20 +73,15 @@ export default {
       this.$router.push("/index");
     },
     handleSearch() {
-      console.log('搜索PPT')
-      console.log(this.search_msg)
-      this.search_init = 0
+      // console.log('搜索PPT')
       // this.$router.push("/index");
     },
     searchStatus() {
-      const status = (this.search_init && this.search_msg.trim() === '') ? 'error' : ''
-      if (this.search_msg.trim() !== '') {
-        this.search_init = 1
-      }
+      const status = (this.is_focused && this.search_msg.trim() === '') ? 'error' : ''
       return status
     },
     searchTips() {
-      const tips = (this.search_init && this.search_msg.trim() === '') ? '请输入PPT名称' : ''
+      const tips = (this.is_focused && this.search_msg.trim() === '') ? '请输入PPT名称' : ''
       return tips
     },
 

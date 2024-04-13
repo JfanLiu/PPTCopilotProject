@@ -1,11 +1,9 @@
 <template>
   <div class="project-list">
     <div class="card-view">
-      <el-row>
-        <el-col v-for="item in projectList" :key="item.Id" :span="6">
-          <ProjectCard :image="getImageUrl(item.Id)" :title="item.Name" :visible="item.Visible" :id="item.Id" :handle-delete="handleDelete"
-            :handle-rename="handleRename" :handle-upload="handleUpload" :edit="edit" />
-        </el-col>
+      <el-row v-for="item in projectList" :key="item.Id">
+        <ProjectCard :image="getImageUrl(item.Id)" :title="item.Name" :visible="item.Visible" :id="item.Id" :handle-delete="handleDelete"
+          :handle-rename="handleRename" :handle-upload="handleUpload" :edit="edit" />
       </el-row>
     </div>
     <t-dialog header="重命名" body="对话框内容" :visible.sync="renameVisible" @confirm="onRenameConfirm" :confirmOnEnter="true"
