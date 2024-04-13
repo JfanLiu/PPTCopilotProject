@@ -2,7 +2,7 @@
   <div class="project-list">
     <div class="card-view">
       <el-row v-for="item in projectList" :key="item.Id">
-        <ProjectCard :image="getImageUrl(item.Id)" :title="item.Name" :visible="item.Visible" :id="item.Id" :handle-delete="handleDelete"
+        <ProjectCard :image="getImageUrl(item.Id, item.Name)" :title="item.Name" :visible="item.Visible" :id="item.Id" :handle-delete="handleDelete"
           :handle-rename="handleRename" :handle-upload="handleUpload" :edit="edit" />
       </el-row>
     </div>
@@ -44,19 +44,26 @@ export default {
   },
   props: {
     projectList: {
-      type: Object,
+      type: Array,
       required: true,
     },
     edit: {
       type: Boolean,
       required: true,
     },
-
-
   },
 
   methods: {
-    getImageUrl(id) {
+    created() {
+      // 在 created 生命周期钩子中输出 projectList
+      console.log('projectList:', this.projectList);
+    },
+    mounted() {
+      // 在 created 生命周期钩子中输出 projectList
+      console.log('mounted:')
+    },
+
+    getImageUrl(id, fileName) {
       return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + '/' + fileName + "/cover.png?t=" + new Date().getTime()
     },
 

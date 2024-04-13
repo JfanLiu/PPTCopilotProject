@@ -5,7 +5,7 @@
             <t-divider></t-divider>
             <el-row>
                 <el-col v-for="item in pptList" :key="item.Id" :span="8">
-                    <ViewCard :image="getImageUrl(item.Id)" :title="item.Name" :id="item.Id"
+                    <ViewCard :image="getImageUrl(item.Id, item.Name)" :title="item.Name" :id="item.Id"
                         :star="item.Star" />
                 </el-col>
             </el-row>
@@ -34,9 +34,12 @@ export default {
         })
     },
     methods: {
-        getImageUrl(id) {
-            return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/ppt_cover/" + id + "/cover.png?time=" + new Date().getTime();
-        },  
+        // getImageUrl(id) {
+        //     return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/ppt_cover/" + id + "/cover.png?time=" + new Date().getTime();
+        // },  
+        getImageUrl(id, fileName) {
+            return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + '/' + fileName + "/cover.png?t=" + new Date().getTime()
+        },
     }
 }
 </script>

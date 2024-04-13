@@ -22,7 +22,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <el-row>
-              <span>项目列表</span>
+              <span><h1>我的作品</h1></span>
               <t-button class="button_type pan-btn blue-btn" @click="handleCreate">新建项目</t-button>
               <t-dialog header="新建项目" body="对话框内容" :visible.sync="createVisible" @confirm="onCreateConfirm"
                 :confirmOnEnter="true" :onConfirm="onCreateConfirmAnother" :onCancel="onCreateCancel" :onClose="createClose">
@@ -51,7 +51,7 @@
 import ProjectList from "@/views/project/components/ProjectList/index.vue"
 import { createProject, getPPTList } from "@/api/project"
 import { mapGetters } from "vuex";
-·
+
 export default {
   components: { ProjectList },
   data() {
@@ -74,9 +74,6 @@ export default {
     ...mapGetters(["id","name","description"])
   },
   methods: {
-    getImageUrl(id) {
-      return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + '/' + fileName + "/cover.png"
-    },
 
     handleCommand(id) {
       //进入文件
@@ -129,6 +126,7 @@ export default {
       getPPTList(this.id).then(response => {
         console.log(response);
         this.projectList = response.data;
+        console.log(this.projectList);
       })
     }
   }

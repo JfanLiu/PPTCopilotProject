@@ -31,8 +31,24 @@ export default {
     this.$refs.myIframe.src = `http://${process.env.VUE_APP_EDITOR_IP || 'localhost'}:7777`;
   },
   methods: {
+   
     handleIframeLoad() {
+      function  dataURLtoBlob(dataURL) {
+        // 分离 Data URL 的头部信息和实际数据部分
+        const parts = dataURL.split(';base64,');
+        const contentType = parts[0].split(':')[1];
+        const raw = window.atob(parts[1]);
+        const rawLength = raw.length;
+        const uInt8Array = new Uint8Array(rawLength);
 
+        // 将 Base64 编码的字符串解码成 Uint8Array
+        for (let i = 0; i < rawLength; ++i) {
+          uInt8Array[i] = raw.charCodeAt(i);
+        }
+
+        // 使用 Uint8Array 创建 Blob 对象
+        return new Blob([uInt8Array], { type: contentType });
+      }
       const loadingInstance = Loading.service()
       // 保存 editorUrl 到局部变量
       const editorUrl = this.editorUrl;
@@ -61,7 +77,6 @@ export default {
         if (message.type === "cloud") {
         // 处理类型为 "type1" 的消息
         const blobStr = message.data;
-        console.log(JSON.stringify(event))
         const blob = new Blob([blobStr], {type: '*'});
         console.log("template length: " + blobStr.length)
         saveStaticFile(projectId, fileName, blob).then(res => {
@@ -72,8 +87,13 @@ export default {
         }
         else if(message.type === "cover"){
           // saveStaticFile( ,message.data)
-          saveCover()
-        }
+          const blob = dataURLtoBlob(message.data)
+          saveCover(projectId, fileName, blob).then(res => {
+            console.log('cover 9529: save success')
+          }).catch(err => {
+            console.log(err, 'cover');
+          });
+          }
       });
     }
   }

@@ -102,9 +102,15 @@ export function saveStaticFile(projectId, fileName, fileBlob) {
   });
 }
 
-export function saveCover(id, data) {   
-  const requestData = JSON.parse(data)
-  return axios.post('/ppt/upload_cover', requestData)
+export function saveCover(id, filename, data) {   
+  return request({
+    url: '/_static/project/' + id + '/' + filename + '/' + 'cover.png',
+    method: 'post',
+    data: data,
+    headers: {
+      'Content-Type': 'plain/text'
+    }
+  });
 }
 
 export function checkLikePorject(id) {

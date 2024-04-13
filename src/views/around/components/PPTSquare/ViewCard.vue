@@ -80,7 +80,8 @@ export default {
 }
 
 .project-image {
-    /* height: 200px; */
+    height: 200px;
+    width: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
