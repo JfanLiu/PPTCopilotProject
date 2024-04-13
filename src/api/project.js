@@ -113,6 +113,13 @@ export function saveCover(id, filename, data) {
   });
 }
 
+export function GetPPTHistory(){
+  return request({
+    url: '/ppt/history',
+    method: 'get',
+  })
+}
+
 export function checkLikePorject(id) {
   return request({
     url: '/project/' + id + '/star',

@@ -35,21 +35,14 @@ export default {
           content: '重命名',
           value: 'rename',
           onClick: () => {
-            this.handleRename(this.id)
-          }
-        },
-        {
-          content: '上传封面',
-          value: 'upload',
-          onClick: () => {
-            this.handleUpload(this.id)
+            this.handleRename(this.proj_id)
           }
         },
         {
           content: '删除',
           value: 'delete',
           onClick: () => {
-            this.handleDelete(this.id)
+            this.handleDelete(this.proj_id, this.title)
           }
         },
       ]
@@ -73,7 +66,7 @@ export default {
       // 获取当前日期，不需要小时
       default: new Date().toLocaleDateString()
     },
-    id: {
+    proj_id: {
       type: Number,
       default: 1
     },
@@ -82,10 +75,6 @@ export default {
       required: true
     },
     handleRename: {
-      type: Function,
-      required: true
-    },
-    handleUpload: {
       type: Function,
       required: true
     },

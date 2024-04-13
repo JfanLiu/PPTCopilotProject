@@ -5,7 +5,7 @@
             <t-divider></t-divider>
             <el-row>
                 <el-col v-for="item in pptList" :key="item.Id" :span="8">
-                    <ViewCard :image="getImageUrl(item.Id, item.Name)" :title="item.Name" :id="item.Id"
+                    <ViewCard :image="getImageUrl(item.Project.Id, item.Name)" :title="item.Name" :id="item.Id"
                         :star="item.Star" />
                 </el-col>
             </el-row>
