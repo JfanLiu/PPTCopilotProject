@@ -133,6 +133,10 @@ export default {
 }
 </script>
 <style>
+/* .project-container {
+  height: 100vh;
+} */
+
 .avatar-container {
   width: 80%;
   aspect-ratio: 1;
