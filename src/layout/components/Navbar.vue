@@ -1,9 +1,14 @@
 <template>
   <div class="navbar">
-    <img src="https://github.com/rumengkai/awesome-vue/assets/91320586/83f64d27-20a7-42e7-b6a4-30d828ff4365"
-      class="user-avatar1" @click="handlegotoDashboard" />
+    <div class="left-nav">
+      <div class="dashboard-container">
+        <img src="https://github.com/rumengkai/awesome-vue/assets/91320586/83f64d27-20a7-42e7-b6a4-30d828ff4365" 
+          class="user-avatar1" @click="handlegotoDashboard" />
+        <span>{{ this.$route.path }}</span>
+      </div>
+    </div>
 
-    <div class="right-menu">
+    <div class="right-nav">
       <div class="avatar-wrapper">
         <t-space align="center" :separator="separator">
           <t-input 
@@ -52,6 +57,7 @@ export default {
       is_focused: 0,
       search_msg: "",
       img_url: "",
+      page_name: "Home Page",
     };
   },
   created() {
@@ -124,7 +130,22 @@ export default {
     align-items: center;
   }
 
-  .right-menu {
+  .left-nav {
+    display: inline-block;
+    width: 17%;
+
+    .dashboard-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      span {
+        font-size: 28px;
+      }
+    }
+  }
+
+  .right-nav {
     float: right;
     margin-top: 20px;
   }

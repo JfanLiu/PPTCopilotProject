@@ -149,4 +149,9 @@ export default {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.project-list {
+  overflow: auto;
+  height: 550px;
+}
+</style>

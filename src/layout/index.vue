@@ -91,8 +91,4 @@ export default {
     width: 100%;
   }
 
-/*  .page-container{
-    margin-left: 200px;
-    margin-right: 200px;
-  } */
 </style>
