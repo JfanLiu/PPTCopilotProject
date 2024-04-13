@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     getImageUrl(id) {
-      return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + "/cover.png"
+      return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + '/' + fileName + "/cover.png"
     },
 
     handleCommand(id) {

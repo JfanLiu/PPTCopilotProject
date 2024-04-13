@@ -86,20 +86,25 @@ export function deleteFile(id, filename) {
 export function getStaticFile(projectId, fileName) {
   console.log(fileName)
   return request({
-    url: '/_static/project/' + projectId + '/' + fileName,
+    url: '/_static/project/' + projectId + '/' + fileName + '/' + fileName,
     method: 'get',
   })
 }
 
 export function saveStaticFile(projectId, fileName, fileBlob) {
   return request({
-    url: '/_static/project/' + projectId + '/' + fileName,
+    url: '/_static/project/' + projectId + '/' + fileName + '/' + fileName,
     method: 'post',
     data: fileBlob,
     headers: {
       'Content-Type': 'plain/text'
     }
   });
+}
+
+export function saveCover(id, data) {   
+  const requestData = JSON.parse(data)
+  return axios.post('/ppt/upload_cover', requestData)
 }
 
 export function checkLikePorject(id) {

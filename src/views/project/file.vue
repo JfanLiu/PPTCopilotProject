@@ -280,7 +280,7 @@ export default {
     downloadFile(id, filename) {
       // 实现下载文件的逻辑
       // 打开新窗口
-      window.open("http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + "/" + filename)
+      window.open("http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + "/" + filename + '/' + fileName)
     },
     renameFile(id, filename) {
       // 实现重命名文件的逻辑

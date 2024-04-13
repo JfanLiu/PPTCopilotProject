@@ -9,7 +9,7 @@
 
 <script>
 
-import {getStaticFile, saveStaticFile} from "@/api/project";
+import {getStaticFile, saveStaticFile, saveCover} from "@/api/project";
 import axios from 'axios';
 import request from "@/utils/request";
 
@@ -56,8 +56,11 @@ export default {
 
       window.addEventListener('message', function(event) {
         if (event.origin !== editorUrl) return
-        // console.log(event.data)
-        const blobStr = event.data;
+        const message = JSON.parse(event.data);
+        console.log(message)
+        if (message.type === "cloud") {
+        // 处理类型为 "type1" 的消息
+        const blobStr = message.data;
         console.log(JSON.stringify(event))
         const blob = new Blob([blobStr], {type: '*'});
         console.log("template length: " + blobStr.length)
@@ -66,6 +69,11 @@ export default {
         }).catch(err => {
           console.log(err);
         });
+        }
+        else if(message.type === "cover"){
+          // saveStaticFile( ,message.data)
+          saveCover()
+        }
       });
     }
   }
