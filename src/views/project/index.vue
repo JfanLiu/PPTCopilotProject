@@ -28,9 +28,9 @@
 <script>
 
 import ProjectList from "@/views/project/components/ProjectList/index.vue"
-import { createProject, getProjectList } from "@/api/project"
+import { createProject, getPPTList } from "@/api/project"
 import { mapGetters } from "vuex";
-
+·
 export default {
   components: { ProjectList },
   data() {
@@ -104,7 +104,7 @@ export default {
     },
 
     loadData() {
-      getProjectList(this.id).then(response => {
+      getPPTList(this.id).then(response => {
         console.log(response);
         this.projectList = response.data;
       })

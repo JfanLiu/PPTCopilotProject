@@ -7,9 +7,9 @@ export function getProject(id) {
   })
 }
 
-export function getProjectList(id) {
+export function getPPTList(id) {
   return request({
-    url: '/user/' + id + '/project',
+    url: '/user/' + id + '/ppt',
     method: 'get',
   })
 }
