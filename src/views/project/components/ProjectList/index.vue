@@ -2,7 +2,7 @@
   <div class="project-list">
     <div class="card-view">
       <el-row v-for="item in projectList" :key="item.Id">
-        <ProjectCard :image="getImageUrl(item.Project.Id, item.Name)" :title="item.Name" :visible="item.Visible" :proj_id="item.Project.Id" :handle-delete="handleDelete"
+        <ProjectCard :image="getImageUrl(item.Project.Id, item.Name)" :filename="item.Name" :visible="item.Visible" :proj_id="item.Project.Id" :handle-delete="handleDelete"
           :handle-rename="handleRename" :edit="edit" />
       </el-row>
     </div>

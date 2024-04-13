@@ -92,6 +92,15 @@ export default {
           type: 'warning'
         });
       } else {
+        // console.log('BBB')
+        // console.log({
+        //     // project_id: this.$route.query.project_id,
+        //     file_name: this.$route.query.file_name,
+        //     visible: this.$route.query.visible,
+        //     topic: this.topic,
+        //     sponsor: this.sponsor,
+        //     template_id: this.template_id
+        //   })
         this.$router.push({
           path: '/direction/edit',
           query: {

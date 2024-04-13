@@ -109,12 +109,18 @@ export default {
       }
       // this.dialogFormVisible = false
       this.createVisible = false;
+      // console.log('AAA')
+      // console.log({
+      //     // project_id: this.id,
+      //     file_name: this.newPPTName + '.json',
+      //     visible: `${this.newPPTVisible === 'public'}`,
+      //   })
       this.$router.push({
         path: '/direction/index',
         query: {
           // project_id: this.id,
           file_name: this.newPPTName + '.json',
-          visible: this.newPPTVisible === 'public',
+          visible: `${this.newPPTVisible === 'public'}`,
         }
       });
       // createProject({

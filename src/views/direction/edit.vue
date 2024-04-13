@@ -190,6 +190,13 @@ export default {
       update_outline(this.outline_id, {
         'outline' : this.convert_tree_to_xml(this.data)
       }).then(res => {
+        // console.log('CCC')
+        // console.log({
+        //   'outline_id': parseInt(this.outline_id),
+        //   'template_id': parseInt(this.$route.query.template_id),
+        //   'file_name': this.$route.query.file_name,
+        //   'visible': this.$route.query.visible === 'true'
+        // })
         gen_ppt({
           'outline_id': parseInt(this.outline_id),
           'template_id': parseInt(this.$route.query.template_id),
