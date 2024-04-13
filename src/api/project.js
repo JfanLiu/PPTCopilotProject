@@ -7,9 +7,9 @@ export function getProject(id) {
   })
 }
 
-export function getProjectList(id) {
+export function getPPTList(id) {
   return request({
-    url: '/user/' + id + '/project',
+    url: '/user/' + id + '/ppt',
     method: 'get',
   })
 }
@@ -24,6 +24,13 @@ export function getAllProject() {
 export function getFile(id) {
   return request({
     url: '/project/' + id + '/file',
+    method: 'get',
+  })
+}
+
+export function getAllPublic() {
+  return request({
+    url: '/ppt/get_all_public',
     method: 'get',
   })
 }
@@ -79,16 +86,27 @@ export function deleteFile(id, filename) {
 export function getStaticFile(projectId, fileName) {
   console.log(fileName)
   return request({
-    url: '/_static/project/' + projectId + '/' + fileName,
+    url: '/_static/project/' + projectId + '/' + fileName + '/' + fileName,
     method: 'get',
   })
 }
 
 export function saveStaticFile(projectId, fileName, fileBlob) {
   return request({
-    url: '/_static/project/' + projectId + '/' + fileName,
+    url: '/_static/project/' + projectId + '/' + fileName + '/' + fileName,
     method: 'post',
     data: fileBlob,
+    headers: {
+      'Content-Type': 'plain/text'
+    }
+  });
+}
+
+export function saveCover(id, filename, data) {   
+  return request({
+    url: '/_static/project/' + id + '/' + filename + '/' + 'cover.png',
+    method: 'post',
+    data: data,
     headers: {
       'Content-Type': 'plain/text'
     }

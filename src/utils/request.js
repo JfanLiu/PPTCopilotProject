@@ -16,7 +16,7 @@ service.interceptors.request.use(
     if (store.getters.token) {
       // 让每个请求携带自定义token
       config.headers['token'] = getToken()
-      console.log(config.headers['token'])
+      // console.log(config.headers['token'])
     }
     return config
   },

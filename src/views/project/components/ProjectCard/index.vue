@@ -10,7 +10,8 @@
         <h3>{{ title }}</h3>
         <p> <t-tag :class="{ 'public-tag': visible, 'private-tag': !visible }">{{ visible ? 'public' : 'private' }}</t-tag> {{ Updated }}</p>
         <div class="project-actions">
-          <t-button type="primary" @click="openFile">打开</t-button>
+          <!-- <t-button type="primary" @click="openFile">打开</t-button> -->
+          <t-button type="primary" @click="handleClick">打开</t-button>
           <div v-if="edit">
             <t-dropdown :options="options">
               <t-button variant="outline">
@@ -97,6 +98,7 @@ export default {
     handleClick() {
       // 处理点击事件
       this.$message.error('ok')
+      console.log(this.image)
     },
     openFile() {
       console.log(1)

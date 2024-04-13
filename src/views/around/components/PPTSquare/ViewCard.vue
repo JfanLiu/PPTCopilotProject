@@ -69,8 +69,9 @@ export default {
 <style scoped>
 .project-card {
     border: 1px solid #ebebeb;
-    border-radius: 4px;
-    padding: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;  
+    /* padding: 5px; */
     margin: 10px;
 }
 
@@ -80,19 +81,24 @@ export default {
 
 .project-image {
     height: 200px;
+    width: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;  
 }
 
 .project-image img {
     max-width: 100%;
     max-height: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;  
 }
 
 .project-actions {
-    margin-top: 10px;
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
