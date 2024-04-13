@@ -1,44 +1,46 @@
 <template>
-    <div class="project-view-container">
-        <t-card :title="title" bordered hover-shadow class="box-card">
-            <el-row>
-                <el-col v-for="item in projectList" :key="item.Id" :span="6">
-                    <ProjectViewCard :image="getImageUrl(item.Id)" :title="item.Name" :id="item.Id" :edit="edit"
-                        :star="item.Star" />
-                </el-col>
-            </el-row>
-        </t-card>
+    <div class="container">
+        <div class="project-view-container">
+        <PPTSquare />
+        </div>
+        <div class="sidebar">
+        <SideBar />
+        </div>
     </div>
 </template>
 <script>
 import { getAllProject } from "@/api/project";
-import ProjectViewCard from "@/views/around/components/ProjectViewCard/index.vue";
+import SideBar from "@/views/around/components/PPTSquare/index.vue";
+import PPTSquare from "@/views/around/components/SideBar/index.vue";
 export default {
-    components: { ProjectViewCard },
+    components: { PPTSquare, SideBar },
     data() {
         return {
-            projectList: [],
-            edit: false,
-            title: "项目广场"
+           
         }
     },
     created() {
-        getAllProject().then(response => {
-            this.projectList = response.data;
-            // 随机排序
-            this.projectList.sort(() => Math.random() - 0.5);
-        })
+        
     },
     methods: {
-        getImageUrl(id) {
-            return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + "/cover.png?time=" + new Date().getTime();
-        },
+      
     }
 }
 </script>
 
 <style scoped>
+.container {
+    display: flex;
+    background: linear-gradient(to bottom, #ffffff, #f0f0ff); /* 渐变从白色到淡紫色 */
+    height: 100vh; /* 设置高度为视窗的高度 */
+}   
+
+.sidebar {
+    flex: 0 0 auto; /* 不扩展、不收缩 */
+    /* width: 1000px; 侧边栏宽度 */
+}
+
 .project-view-container {
-    padding: 20px;
+    flex: 1; /* 自动扩展 */
 }
 </style>
