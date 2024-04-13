@@ -2,8 +2,8 @@
   <div class="project-list">
     <div class="card-view">
       <el-row v-for="item in projectList" :key="item.Id">
-        <ProjectCard :image="getImageUrl(item.Project.Id, item.Name)" :title="item.Name" :visible="item.Visible" :id="item.Id" :handle-delete="handleDelete"
-          :handle-rename="handleRename" :handle-upload="handleUpload" :edit="edit" />
+        <ProjectCard :image="getImageUrl(item.Project.Id, item.Name)" :title="item.Name" :visible="item.Visible" :proj_id="item.Project.Id" :handle-delete="handleDelete"
+          :handle-rename="handleRename" :edit="edit" />
       </el-row>
     </div>
     <t-dialog header="重命名" body="对话框内容" :visible.sync="renameVisible" @confirm="onRenameConfirm" :confirmOnEnter="true"
@@ -40,6 +40,8 @@ export default {
       renameVisible: false,
       deleteVisible: false,
       now_id: 0,
+      now_filename:'',
+      proj_id:0
     }
   },
   props: {
@@ -54,15 +56,6 @@ export default {
   },
 
   methods: {
-    created() {
-      // 在 created 生命周期钩子中输出 projectList
-      console.log('projectList:', this.projectList);
-    },
-    mounted() {
-      // 在 created 生命周期钩子中输出 projectList
-      console.log('mounted:')
-    },
-
     getImageUrl(id, fileName) {
       return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + '/' + fileName + "/cover.png?t=" + new Date().getTime()
     },
@@ -71,9 +64,10 @@ export default {
       //进入文件
       console.log('click')
     },
-    handleDelete(id) {
-      this.now_id = id;
-      this.deleteVisible = true;
+    handleDelete(id, filename) {
+      this.now_filename = filename
+      this.deleteVisible = true
+      this.proj_id = id
     },
     handleRename(id) {
       this.renameVisible = true;
@@ -110,12 +104,12 @@ export default {
     },
     onDeleteConfirmAnother() {
       console.log('confirm another')
-      deleteProject(this.now_id).then(response => {
+      deleteFile(this.proj_id, this.now_filename).then(response => {
         console.log(response)
         this.loadData();
         this.$message({
           type: 'success',
-          message: '项目删除成功'
+          message: '文件删除成功'
         })
       }).finally(() => {
         this.deleteVisible = false;
@@ -128,28 +122,6 @@ export default {
     },
     deleteClose() {
       this.deleteVisible = false;
-    },
-    handleUpload(id) {
-      this.now_id = id;
-      const fileInput = document.createElement('input');
-      // 限制只能传png
-      fileInput.setAttribute('accept', 'image/png');
-      fileInput.setAttribute('type', 'file');
-      fileInput.addEventListener('change', () => {
-        const file = fileInput.files[0];
-        // 在这里可以对文件进行处理，例如发送到服务器等
-        const formData = new FormData();
-        formData.append('uploadname', file, file.name);
-        formData.append('savename', 'cover.png');
-        uploadFile(this.now_id, formData).then(response => {
-          this.getProjectFiles(this.now_id)
-        }).finally(() => {
-          // 刷新页面
-          window.location.reload();
-        });
-      });
-      fileInput.click();
-      // 清除当前浏览器所有图片缓存
     },
   }
 }

@@ -88,6 +88,8 @@ export default {
           content: '删除',
           value: 'delete',
           onClick: () => {
+            console.log(this.id)
+            console.log(this.name)
             this.deleteFile(this.id, this.name)
           }
         },
