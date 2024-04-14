@@ -3,7 +3,7 @@
     <div class="left-nav">
       <div class="dashboard-container">
         <img src="https://github.com/rumengkai/awesome-vue/assets/91320586/83f64d27-20a7-42e7-b6a4-30d828ff4365" 
-          class="user-avatar1" @click="handlegotoDashboard" />
+          class="user-avatar1" @click="handlegotoIndex" />
         <span @click="handlegotoDashboard">Home Page</span>
       </div>
     </div>
@@ -75,12 +75,15 @@ export default {
     handlegotoDashboard() {
       this.$router.push("/around/index");
     },
+    handlegotoIndex() {
+      this.$router.push("/");
+    },
     handlegotoSearch() {
       this.$router.push("/index");
     },
     handleSearch() {
-      // console.log('搜索PPT')
-      // this.$router.push("/index");
+      console.log('搜索PPT')
+      this.$router.push("/index");
     },
     searchStatus() {
       const status = (this.is_focused && this.search_msg.trim() === '') ? 'error' : ''
@@ -119,6 +122,7 @@ export default {
   overflow: hidden;
   position: relative;
   background: #fff;
+  // background: linear-gradient(to left, #8f94fb, #4e54c8); 
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
   .search-button-container {

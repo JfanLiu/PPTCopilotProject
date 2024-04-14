@@ -1,15 +1,29 @@
 <template>
   <div class="dash-plate-container">
+    <div class="background"></div>
+    <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
     <div class="dash-plate-header">
       <img src="https://user-images.githubusercontent.com/75596353/236753989-c95dd9d6-029e-4456-aec4-dd65363a9c5d.png" alt="PPTCopilot Logo" class="logo">
       <h1>Welcome to PPTCopilot</h1>
-      <p>Experience the future of PPT creation with AI assistance</p>
+      <h1>AI一键生成PPT</h1>
+      <p>输入你的内容主题，让AI为你一站式服务到底</p>
     </div>
     <div class="container">
-      <t-button type="primary" style="margin-top: 20px;margin-bottom: 20px" @click="jumpProject">立即使用</t-button>
+      <!-- <t-button type="primary" style="margin-top: 20px;margin-bottom: 20px" @click="jumpProject">立即使用</t-button> -->
+      <t-button class="button" type="primary" style="margin-top: 20px;margin-bottom: 20px" @click="jumpProject">立即使用</t-button>
     </div>
     <div class="dash-plate-content">
-
       <div
         v-for="(feature, index) in features"
         :key="index"
@@ -110,10 +124,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.background {
+    /* background-image: linear-gradient(95deg, #5261f9, #fa69e2); */
+    /* background-image: linear-gradient(to top, #5261f9, #ffffff); */
+    /* background: linear-gradient(180deg, #ffffff, #ece8fb 52%, #df73e979 79%, #bd9bf3) */
+    background: linear-gradient(180deg, #ffffff, #ffffff 43%, #df73e979 79%, #bd9bf3);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    top: 0;
+    z-index: -1
+}
+
 .dash-plate-container {
   max-width: 1200px;
   margin: 0 auto;
-  //padding: 60px 30px;
+  background: linear-gradient(to bottom, var(--el-color-primary-light-9), #ddf4ff);
+  z-index: -1; /* 确保背景位于最底层 */
 }
 
 .dash-plate-header {
@@ -121,7 +149,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   .logo {
     width: 300px; // 将宽度从 80px 修改为 60px
     height: auto;
@@ -141,6 +168,32 @@ export default {
   img {
     margin: 50px;
   }
+}
+
+.container{
+   display: flex;
+   justify-content: center;
+    // background: #fff0f9;
+    border-radius: 99px;
+    // box-shadow: 0 3px 24px 1px #66418b66;
+    cursor: pointer;
+    height: 56px;
+    margin-top: 10px;
+    // overflow: hidden;
+    // padding: 8px;
+}
+
+.button {
+  // background: linear-gradient(138deg, #d5d3f1, #bde1e28d 22%, #34eeb6a5 89%, #cdf0aeb7);
+  background: linear-gradient(138deg, #3b2af9, #562cf7 22%, #dd34ee 89%, #f5e17d);
+  border-radius: 99px;
+  box-shadow: 0 0 4px 1px #9056ca66;
+  color: #fff;
+  font-size: 26px;
+  height: 100%;
+  transition: all .3s cubic-bezier(.075,.82,.165,1);
+  // width: 100%;
+  width: 333px;
 }
 
 .dash-plate-content {
@@ -181,8 +234,119 @@ export default {
 
 
 }
-.container {
-   display: flex;
-   justify-content: center;
- }
+ 
+.circles{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.circles li{
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(12, 133, 119, 0.5);
+    animation: animate 25s linear infinite;
+    bottom: -150px;
+    
+}
+
+.circles li:nth-child(1){
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+
+
+.circles li:nth-child(2){
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+
+.circles li:nth-child(3){
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+}
+
+.circles li:nth-child(4){
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.circles li:nth-child(5){
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+}
+
+.circles li:nth-child(6){
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+}
+
+.circles li:nth-child(7){
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+}
+
+.circles li:nth-child(8){
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+}
+
+.circles li:nth-child(9){
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+
+.circles li:nth-child(10){
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+}
+
+
+
+@keyframes animate {
+
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100%{
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+
+}
 </style>

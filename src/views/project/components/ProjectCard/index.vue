@@ -45,6 +45,13 @@ export default {
             this.handleDelete(this.proj_id, this.filename)
           }
         },
+        {
+          content: '可见性',
+          value: 'visible',
+          onClick: () => {
+            this.handleVisible(this.file_id, this.filename, this.visible)
+          }
+        }
       ]
     }
   },
@@ -70,11 +77,19 @@ export default {
       type: Number,
       default: 1
     },
+    file_id:{
+      type: Number,
+      default: 1
+    },
     handleDelete: {
       type: Function,
       required: true
     },
     handleRename: {
+      type: Function,
+      required: true
+    },
+    handleVisible: {
       type: Function,
       required: true
     },

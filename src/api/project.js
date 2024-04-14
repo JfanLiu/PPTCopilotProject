@@ -95,6 +95,17 @@ export function deleteFile(id, filename) {
 }
 
 
+export function changePub(id, visible) {
+  console.log('visible:', id, visible)
+  return request({
+    url: '/ppt/visible',
+    method: 'put',
+    params: {
+      file_id: id,
+      visible: visible
+    }
+  })
+}
 
 export function getStaticFile(projectId, fileName) {
   return request({
