@@ -9,7 +9,7 @@
 
 <script>
 
-import {getStaticFile, saveStaticFile, saveCover, UpdateHistory} from "@/api/project";
+import {getStaticFile, saveStaticFile, saveCover, saveContent, UpdateHistory} from "@/api/project";
 import axios from 'axios';
 import request from "@/utils/request";
 
@@ -55,6 +55,7 @@ export default {
       if (event.origin !== this.editorUrl) return
 
       const message = JSON.parse(event.data);
+      console.log(message)
       UpdateHistory(projectId, fileName) // 更新历史记录 
       if (message.type === "cloud") {
       // 处理类型为 "type1" 的消息
@@ -70,13 +71,20 @@ export default {
       else if(message.type === "cover"){
         // saveStaticFile( ,message.data)
         const blob = dataURLtoBlob(message.data)
-        console.log('save cover:projectId-fileName:',projectId,fileName)
         saveCover(projectId, fileName, blob).then(res => {
-          console.log('cover 9529: save success')
+          console.log('cover: save success')
         }).catch(err => {
           console.log(err, 'cover');
         });
-        }
+      }
+      else if(message.type === "content"){
+        const blob = dataURLtoBlob(message.data)
+        saveContent(projectId, fileName, blob).then(res => {
+          console.log('content: save success')
+        }).catch(err => {
+          console.log(err, 'content');
+        });
+      }
     },
 
     handleIframeLoad() {

@@ -34,9 +34,6 @@ export default {
     })
   },
   methods: {
-    // getImageUrl(id) {
-    //     return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/ppt_cover/" + id + "/cover.png?time=" + new Date().getTime();
-    // },  
     getImageUrl(id, fileName) {
       return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + '/' + fileName + "/cover.png?t=" + new Date().getTime()
     },

@@ -125,6 +125,17 @@ export function saveCover(id, filename, data) {
   });
 }
 
+export function saveContent(id, filename, data) {
+  return request({
+    url: '/_static/project/' + id + '/' + filename + '/' + 'content.png',
+    method: 'post',
+    data: data,
+    headers: {
+      'Content-Type': 'plain/text'
+    }
+  });
+}
+
 export function GetPPTHistory(){
   return request({
     url: '/ppt/history',
