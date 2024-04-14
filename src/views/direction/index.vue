@@ -92,6 +92,7 @@ export default {
           type: 'warning'
         });
       } else {
+        console.log('direction/index里的visible:', this.$route.query)
         this.$router.push({
           path: '/direction/edit',
           query: {

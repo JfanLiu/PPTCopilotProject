@@ -125,6 +125,7 @@ export default {
   },
   methods: {
     goto_pptist() {
+      console.log('goto_pptist:',this.id, this.name)
       this.$router.push({path: '/pptist/index', query: {project_id: this.id, file_name: this.name}})
     },
     handleCommand(command) {

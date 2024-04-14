@@ -33,10 +33,7 @@ export default {
             // this.pptList.sort(() => Math.random() - 0.5);
         })
     },
-    methods: {
-        // getImageUrl(id) {
-        //     return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/ppt_cover/" + id + "/cover.png?time=" + new Date().getTime();
-        // },  
+    methods: { 
         getImageUrl(id, fileName) {
             return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + '/' + fileName + "/cover.png?t=" + new Date().getTime()
         },

@@ -35,14 +35,14 @@ export default {
           content: '重命名',
           value: 'rename',
           onClick: () => {
-            this.handleRename(this.proj_id)
+            this.handleRename(this.proj_id, this.filename)
           }
         },
         {
           content: '删除',
           value: 'delete',
           onClick: () => {
-            this.handleDelete(this.proj_id, this.title)
+            this.handleDelete(this.proj_id, this.filename)
           }
         },
       ]
@@ -90,9 +90,11 @@ export default {
       console.log(this.image)
     },
     openFile() {
+      console.log('openFile:',this.proj_id, this.filename)
       this.$router.push({
         path: '/pptist/index',
         query: {
+          project_id: this.proj_id,
           file_name: this.filename,
         }
       })

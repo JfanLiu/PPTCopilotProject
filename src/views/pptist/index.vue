@@ -9,7 +9,7 @@
 
 <script>
 
-import {getStaticFile, saveStaticFile, saveCover} from "@/api/project";
+import {getStaticFile, saveStaticFile, saveCover, UpdateHistory} from "@/api/project";
 import axios from 'axios';
 import request from "@/utils/request";
 
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
    
-    handleIframeLoad() {
+    addListen(event) {      
       function  dataURLtoBlob(dataURL) {
         // 分离 Data URL 的头部信息和实际数据部分
         const parts = dataURL.split(';base64,');
@@ -49,9 +49,38 @@ export default {
         // 使用 Uint8Array 创建 Blob 对象
         return new Blob([uInt8Array], { type: contentType });
       }
+
+      const projectId = this.project_id === undefined ? 1 : this.project_id;
+      const fileName = this.file_name === undefined ? 'test.json' : this.file_name;
+      if (event.origin !== this.editorUrl) return
+
+      const message = JSON.parse(event.data);
+      UpdateHistory(projectId, fileName) // 更新历史记录 
+      if (message.type === "cloud") {
+      // 处理类型为 "type1" 的消息
+      const blobStr = message.data;
+      const blob = new Blob([blobStr], {type: '*'});
+      // console.log("template length: " + blobStr.length)
+      saveStaticFile(projectId, fileName, blob).then(res => {
+        console.log('template 9529: save success')
+      }).catch(err => {
+        console.log(err);
+      });
+      }
+      else if(message.type === "cover"){
+        // saveStaticFile( ,message.data)
+        const blob = dataURLtoBlob(message.data)
+        console.log('save cover:projectId-fileName:',projectId,fileName)
+        saveCover(projectId, fileName, blob).then(res => {
+          console.log('cover 9529: save success')
+        }).catch(err => {
+          console.log(err, 'cover');
+        });
+        }
+    },
+
+    handleIframeLoad() {
       const loadingInstance = Loading.service()
-      // 保存 editorUrl 到局部变量
-      const editorUrl = this.editorUrl;
       // 导入选定文件
       let matches = document.cookie.match(/token=([^;]+)/);
       let token = (matches ? matches[1] : null);
@@ -60,8 +89,6 @@ export default {
       const projectId = this.project_id === undefined ? 1 : this.project_id;
       const fileName = this.file_name === undefined ? 'test.json' : this.file_name;
       getStaticFile(projectId, fileName).then(res => {
-        console.log("this is pptits")
-        console.log(res)
         // print length
         iframeWindow.postMessage(res, this.editorUrl);
         loadingInstance.close()
@@ -70,33 +97,13 @@ export default {
         console.log(err)
       })
 
-      window.addEventListener('message', function(event) {
-        if (event.origin !== editorUrl) return
-        const message = JSON.parse(event.data);
-        console.log(message)
-        if (message.type === "cloud") {
-        // 处理类型为 "type1" 的消息
-        const blobStr = message.data;
-        const blob = new Blob([blobStr], {type: '*'});
-        console.log("template length: " + blobStr.length)
-        saveStaticFile(projectId, fileName, blob).then(res => {
-          console.log('template 9529: save success')
-        }).catch(err => {
-          console.log(err);
-        });
-        }
-        else if(message.type === "cover"){
-          // saveStaticFile( ,message.data)
-          const blob = dataURLtoBlob(message.data)
-          saveCover(projectId, fileName, blob).then(res => {
-            console.log('cover 9529: save success')
-          }).catch(err => {
-            console.log(err, 'cover');
-          });
-          }
-      });
+      window.addEventListener('message', this.addListen);
     }
-  }
+  },
+  beforeDestroy() {
+    // 移除监听器
+    window.removeEventListener('message', this.addListen);
+  },
 }
 
 

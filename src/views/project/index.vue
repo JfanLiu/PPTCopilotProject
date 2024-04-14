@@ -99,6 +99,8 @@ export default {
     },
     onCreateConfirm() {
       console.log('confirm another')
+      console.log(this.newPPTVisible)
+      console.log(this.newPPTVisible === 'public')
       if(this.newPPTName.length < 3){
         console.log('项目名太短')
         this.showNameErr = true
@@ -107,7 +109,6 @@ export default {
       else{
         this.showNameErr = false
       }
-      // this.dialogFormVisible = false
       this.createVisible = false;
       this.$router.push({
         path: '/direction/index',
@@ -117,22 +118,6 @@ export default {
           visible: this.newPPTVisible === 'public',
         }
       });
-      // createProject({
-      //   'name': this.newPPTName,
-      //   'description': '暂无简介',
-      //   'visible': this.newPPTVisible === 'public'
-      // }).then(response => {
-      //   console.log(response)
-      //   this.loadData();
-      //   this.$message({
-      //     type: 'success',
-      //     message: '项目' + this.newPPTName + '添加成功'
-      //   })
-      // }).catch((err) => {
-      //   console.log(err)
-      // }).finally(() => {
-      //   this.createVisible = false;
-      // })
     },
     loadData() {
       getPPTList(this.id).then(response => {

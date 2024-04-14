@@ -10,8 +10,8 @@
 </template>
 <script>
 import { getAllProject } from "@/api/project";
-import SideBar from "@/views/around/components/PPTSquare/index.vue";
-import PPTSquare from "@/views/around/components/SideBar/index.vue";
+import PPTSquare from "@/views/around/components/PPTSquare/index.vue";
+import SideBar from "@/views/around/components/SideBar/index.vue";
 export default {
     components: { PPTSquare, SideBar },
     data() {

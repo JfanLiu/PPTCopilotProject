@@ -66,6 +66,19 @@ export function updateProject(id, data) {
   })
 }
 
+export function RenamePPT(id, oldName, newName) {
+  console.log('oldname:',oldName)
+  console.log('newname:',newName)
+  return request({
+    url: '/project/' + id + '/file/update_name',
+    method: 'post',
+    data: {
+      old_name: oldName,
+      new_name: newName
+    }
+  })
+}
+
 export function uploadFile(id, data) {
   return request({
     url: '/project/' + id + '/file',
@@ -84,7 +97,6 @@ export function deleteFile(id, filename) {
 
 
 export function getStaticFile(projectId, fileName) {
-  console.log(fileName)
   return request({
     url: '/_static/project/' + projectId + '/' + fileName + '/' + fileName,
     method: 'get',
@@ -102,7 +114,7 @@ export function saveStaticFile(projectId, fileName, fileBlob) {
   });
 }
 
-export function saveCover(id, filename, data) {   
+export function saveCover(id, filename, data) {
   return request({
     url: '/_static/project/' + id + '/' + filename + '/' + 'cover.png',
     method: 'post',
@@ -117,6 +129,18 @@ export function GetPPTHistory(){
   return request({
     url: '/ppt/history',
     method: 'get',
+  })
+}
+
+export function UpdateHistory(proj_id, filename){
+  console.log('UpdateHistory:', proj_id, filename)
+  return request({
+    url: '/ppt/history',
+    method: 'post',
+    params: {
+      project_id: proj_id,
+      filename: filename
+    }
   })
 }
 

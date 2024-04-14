@@ -2,7 +2,7 @@
   <div class="project-list">
     <div class="card-view">
       <el-row v-for="item in projectList" :key="item.Id">
-        <ProjectCard :image="getImageUrl(item.Project.Id, item.Name)" :title="item.Name" :visible="item.Visible" :proj_id="item.Project.Id" :handle-delete="handleDelete"
+        <ProjectCard :image="getImageUrl(item.Project.Id, item.Name)" :filename="item.Name" :visible="item.Visible" :proj_id="item.Project.Id" :handle-delete="handleDelete"
           :handle-rename="handleRename" :edit="edit" />
       </el-row>
     </div>
@@ -29,7 +29,8 @@ import {
   likeProject,
   cloneProject,
   unlikeProject,
-  checkLikePorject
+  checkLikePorject,
+  RenamePPT
 } from "@/api/project"
 export default {
   name: "ProjectList",
@@ -69,18 +70,17 @@ export default {
       this.deleteVisible = true
       this.proj_id = id
     },
-    handleRename(id) {
+    handleRename(id, filename) {
+      this.now_filename = filename
       this.renameVisible = true;
-      this.now_id = id;
+      this.proj_id = id;
     },
     onRenameConfirm() {
       console.log('confirm')
     },
     onRenameConfirmAnother() {
-      console.log('confirm another')
-      updateProject(this.now_id, {
-        'name': this.newProjectName,
-      }).then(response => {
+      console.log('Rename confirm another')
+      RenamePPT(this.proj_id, this.now_filename, this.newProjectName).then(response => {
         console.log(response)
         this.loadData();
         this.$message({
