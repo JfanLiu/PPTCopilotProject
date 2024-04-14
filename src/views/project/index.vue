@@ -22,11 +22,14 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <el-row>
-              <span><h1>我的作品</h1></span>
-              <t-button class="button_type pan-btn blue-btn" @click="handleCreate">
-                <add-icon slot="icon" />
-                新建PPT
-              </t-button>
+              <div class="header-container">
+                <span><strong>我的作品</strong></span>
+                <t-button class="button_type pan-btn blue-btn" @click="handleCreate">
+                  <add-icon slot="icon" />
+                  新建PPT
+                </t-button>
+              </div>
+              
               <t-dialog 
                 header="新建PPT" 
                 body="对话框内容" 
@@ -110,12 +113,18 @@ export default {
         this.showNameErr = false
       }
       this.createVisible = false;
+      // console.log('AAA')
+      // console.log({
+      //     // project_id: this.id,
+      //     file_name: this.newPPTName + '.json',
+      //     visible: `${this.newPPTVisible === 'public'}`,
+      //   })
       this.$router.push({
         path: '/direction/index',
         query: {
           // project_id: this.id,
           file_name: this.newPPTName + '.json',
-          visible: this.newPPTVisible === 'public',
+          visible: `${this.newPPTVisible === 'public'}`,
         }
       });
     },
@@ -144,5 +153,14 @@ export default {
   color: white;
   margin-bottom: 10px;
   float: right;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-container > span {
+  font-size: 32px;
 }
 </style>
