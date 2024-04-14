@@ -23,6 +23,7 @@
         </t-row>
       </div>
     </t-card>
+    <pic-viewer :url="url" v-model="show"/>
   </div>
 </template>
   
@@ -35,13 +36,27 @@ import {
   ArrowDownRectangleIcon,
   ShareIcon,
 } from 'tdesign-icons-vue';
+import PicViewer from '@/views/around/components/PicPrew/PicPrew.vue'
+import { clonePPT } from "@/api/project";
+import { title } from '@/settings';
 export default {
   name: "ViewCard",
   components: {
     HeartFilledIcon,
+    PicViewer,
+  },
+  data(){
+    return{
+      show:false,
+      url: "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + this.proj_id + '/' + this.title + "/content.png?t=" + new Date().getTime()
+    }
   },
   props: {
     id: {
+      type: Number,
+      required: true
+    },
+    proj_id: {
       type: Number,
       required: true
     },
@@ -76,8 +91,17 @@ export default {
   },
   methods: {
     openFile() {
-      this.$router.push({ path: '/project/' + this.id + '/file' })
+      // this.$router.push({ path: '/project/' + this.id + '/file' })
+      this.show=true
     },
+    clone() {
+      console.log('clone id:',this.id)
+      clonePPT(this.id).then(response => {
+        console.log(response)
+      }).catch(() =>{
+        console.log('克隆失败')
+      })
+    }
   }
 }
 </script>

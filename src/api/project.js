@@ -7,6 +7,16 @@ export function getProject(id) {
   })
 }
 
+export function clonePPT(file_id){
+  return request({
+    url: '/ppt/clone',
+    method: 'post',
+    params: {
+      file_id: file_id
+    }
+  })
+}
+
 export function getPPTList(id) {
   return request({
     url: '/user/' + id + '/ppt',
