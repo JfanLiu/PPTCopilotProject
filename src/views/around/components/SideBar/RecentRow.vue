@@ -2,13 +2,11 @@
   <div>
     <t-row class="file-row">
       <t-col :span="4">
-        <div class="file-name" @click="goto_pptist">{{ name }}</div>
+        <div class="file-name" @click="goto_pptist">{{ filenameWithoutSuffix }}</div>
       </t-col>
       <t-col :span="8">
         <div class="file-update-time">{{ updateTime | formatDate }}</div>
       </t-col>
-      <!-- <el-col :span="8">
-      </el-col> -->
     </t-row>
   </div>
   </template>
@@ -34,8 +32,13 @@ export default {
 
     }
   },
-  computed() {
-    
+  computed: {
+    filenameWithoutSuffix() {
+      if (this.name.endsWith('.json')) {
+        return this.name.slice(0, -5)
+      }
+      return this.name
+    }
   },
   filters: {
     formatDate(time) {
@@ -81,7 +84,6 @@ export default {
 .file-row:hover {
     background-color: #f0f0f0; /* 设置鼠标悬停时的背景颜色 */
 }
-
 
 .file-name {
   font-weight: bold;

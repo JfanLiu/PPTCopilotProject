@@ -65,6 +65,7 @@ export default {
       console.log('click')
     },
     handleDelete(id, filename) {
+      console.log(filename)
       this.now_filename = filename
       this.deleteVisible = true
       this.proj_id = id
@@ -103,7 +104,7 @@ export default {
       console.log('confirm')
     },
     onDeleteConfirmAnother() {
-      console.log('confirm another')
+      console.log('deleteFile:', this.proj_id, this.now_filename)
       deleteFile(this.proj_id, this.now_filename).then(response => {
         console.log(response)
         this.loadData();
@@ -131,6 +132,6 @@ export default {
 <style scoped>
 .project-list {
   overflow: auto;
-  height: 550px;
+  height: 70vh;
 }
 </style>

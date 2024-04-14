@@ -42,7 +42,7 @@ export default {
           content: '删除',
           value: 'delete',
           onClick: () => {
-            this.handleDelete(this.proj_id, this.title)
+            this.handleDelete(this.proj_id, this.filename)
           }
         },
       ]
