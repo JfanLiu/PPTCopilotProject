@@ -8,11 +8,14 @@
         <el-main>
           <el-card>
             <el-tabs v-model="activeTab">
-              <el-tab-pane label="用户收藏" name="用户收藏">
+              <!-- <el-tab-pane label="用户收藏" name="用户收藏">
                 <ProjectList :project-list="this.projectList" :edit = "false"></ProjectList>
-              </el-tab-pane>
+              </el-tab-pane> -->
               <el-tab-pane label="账户设置" name="account">
                 <account :user="user" />
+              </el-tab-pane>
+              <el-tab-pane label="评论" name="activity">
+                <activity></activity>
               </el-tab-pane>
             </el-tabs>
           </el-card>
@@ -39,7 +42,7 @@ export default {
   data() {
     return {
       user: {},
-      activeTab: '用户收藏',
+      activeTab: 'account',
       projectList: [],
     }
   },
@@ -74,3 +77,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.app-container{
+  background: linear-gradient(to top, #ffffff, #f0f0ff); /* 渐变从白色到淡紫色 */
+  height: 100%;
+}
+</style>

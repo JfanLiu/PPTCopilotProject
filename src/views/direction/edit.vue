@@ -195,7 +195,7 @@ export default {
           'outline_id': parseInt(this.outline_id),
           'template_id': parseInt(this.$route.query.template_id),
           'file_name': this.$route.query.file_name,
-          'visible': this.$route.query.visible
+          'visible': this.$route.query.visible === 'true'
         }).then(res => {
           loadingInstance.close()
           this.$router.push({

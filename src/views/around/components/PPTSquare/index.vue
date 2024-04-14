@@ -1,9 +1,6 @@
 <template>
   <div class="project-view-container">
-    <t-card bordered hover-shadow class="box-card">
       <div class="view-container">
-        <h1>{{title}}</h1>
-        <t-divider></t-divider>
         <el-row :gutter="20">
           <el-col v-for="item in pptList" :key="item.Id" :span="6">
             <ViewCard :image="getImageUrl(item.Project.Id, item.Name)" :title="item.Name" :id="item.Id"
@@ -11,7 +8,6 @@
           </el-col>
         </el-row>
       </div>
-    </t-card>
   </div>
 </template>
 <script>
@@ -44,12 +40,18 @@ export default {
 </script>
 
 <style scoped>
-.box-card {
-  background: linear-gradient(to top, #ffffff, #f0f0ff); 
+.view-container {
+  /* background: linear-gradient(to top, #ffffff, #f0f0ff);  */
+  /* background-color: aliceblue; */
+  overflow-y: auto;
+  overflow-x:hidden;
+  height:100%;
+  padding-top: 10px;
   /* padding: 20px; */
 }
 
 .view-container {
-  height: 570px;
+  height: 71vh;
+  margin-top: 5px;
 }
 </style>

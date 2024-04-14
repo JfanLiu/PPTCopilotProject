@@ -4,21 +4,14 @@
       <div class="project-image" @click="openFile">
         <img :src="image" alt="">
       </div>
-      <h2 class="project-ppt-title"> <span class="creator">{{ creator }}</span>/{{ filenameWithoutSuffix }}</h2>
-      <p>{{ Updated  | formatDate}}</p>
+      <h2 class="project-ppt-title"> <span class="creator">{{ creator }}</span> : {{ filenameWithoutSuffix }}</h2>
       <div class="project-actions">
-        <t-row :gutter="5">
-          <t-col :span="3">
-            <t-button type="primary" @click="openFile">预览</t-button>
+        <t-row>
+          <t-col :span="9">
+            <span>{{ Updated  | formatDate}}</span>
           </t-col>
           <t-col :span="3">
             <t-button type="primary" @click="clone">克隆</t-button>
-          </t-col>
-          <t-col :span="2" :offset="4">
-            <t-tag theme="warning">
-              <HeartFilledIcon/>
-             {{ star }}
-            </t-tag>
           </t-col>
         </t-row>
       </div>
@@ -126,6 +119,7 @@ export default {
 
 .project-container {
   margin-bottom: 20px;
+  padding-top: 3px;
 }
 
 .project-image {

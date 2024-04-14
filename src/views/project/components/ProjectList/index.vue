@@ -105,7 +105,8 @@ export default {
     },
     onRenameConfirmAnother() {
       console.log('Rename confirm another')
-      RenamePPT(this.proj_id, this.now_filename, this.newProjectName).then(response => {
+      console.log( this.now_filename)
+      RenamePPT(this.proj_id, this.now_filename, this.newProjectName + '.json').then(response => {
         console.log(response)
         this.loadData();
         this.$message({

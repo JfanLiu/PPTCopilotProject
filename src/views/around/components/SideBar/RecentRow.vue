@@ -1,7 +1,7 @@
 <template>
   <div class="file-row" @click="goto_pptist">
     <t-row  >
-      <t-col :span="4">
+      <t-col :span="8">
         <div class="file-name">{{ filenameWithoutSuffix }}</div>
       </t-col>
       <t-col :span="8">

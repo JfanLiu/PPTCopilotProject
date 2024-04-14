@@ -3,7 +3,9 @@
     <t-layout>
       <t-header>
         <div>
-          <h1 class="recent-mod-header">最近修改的ppt</h1>
+          <h1 class="recent-mod-header">Recent Activities</h1>
+          <t-divider></t-divider>
+          <p>ss</p>
         </div>
       </t-header>
       <t-content>
@@ -20,7 +22,7 @@
 </template>
 
 <script>
-import { Icon } from 'tdesign-icons-vue';
+import { Icon} from 'tdesign-icons-vue';
 import RecentRow from '@/views/around/components/SideBar/RecentRow.vue';
 import { GetPPTHistory } from '@/api/project';
 
@@ -53,5 +55,6 @@ export default{
 
 .menu-container {
   height: 75vh;
+  overflow-y: auto;
 }
 </style>

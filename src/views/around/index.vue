@@ -5,7 +5,10 @@
         <SideBar />
       </el-aside>
       <el-main class="elmain">
+        <el-card class="box-card">
+        <span style="font-size: 32px;"><strong>PPT广场</strong></span>
         <PPTSquare />
+        </el-card>
       </el-main>
     </el-container>
   </div>
@@ -29,7 +32,8 @@ export default {
   /* height: 100vh; */
 }   
 
-.elmain{
+.box-card{
+  height: 85vh;
   /* margin: 0px; */
   /* padding: 0px; */
 }

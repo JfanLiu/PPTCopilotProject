@@ -13,7 +13,7 @@
           <t-row>
             <t-descriptions title="个人信息" layout="vertical">
               <t-descriptions-item label="用户名">{{ name }}</t-descriptions-item>
-              <t-descriptions-item label="描述">{{ description || "这个人很懒，什么也没留下"  }}</t-descriptions-item>
+              <t-descriptions-item label="个性签名">{{ description || "这个人很懒，什么也没留下"  }}</t-descriptions-item>
               <t-descriptions-item label="ID">{{ id }}</t-descriptions-item>
             </t-descriptions>
           </t-row>
@@ -147,6 +147,7 @@ export default {
 /* .project-container {
   height: 100vh;
 } */
+
 
 .avatar-container {
   width: 80%;
