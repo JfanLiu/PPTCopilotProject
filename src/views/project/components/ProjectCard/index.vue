@@ -7,7 +7,7 @@
         </div>
       </el-aside>
       <el-main>
-        <h3>{{ filename }}</h3>
+        <h3>{{ filenameWithoutSuffix }}</h3>
         <p> <t-tag :class="{ 'public-tag': visible, 'private-tag': !visible }">{{ visible ? 'public' : 'private' }}</t-tag> {{ Updated }}</p>
         <div class="project-actions">
           <t-button type="primary" @click="openFile">打开</t-button>
@@ -81,6 +81,14 @@ export default {
     edit: {
       type: Boolean,
       default: true
+    }
+  },
+  computed: {
+    filenameWithoutSuffix() {
+      if (this.filename.endsWith('.json')) {
+        return this.filename.slice(0, -5)
+      }
+      return this.filename
     }
   },
   methods: {

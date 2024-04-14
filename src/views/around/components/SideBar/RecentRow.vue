@@ -1,16 +1,16 @@
 <template>
-    <div>
-        <el-row class="file-row" >
-            <el-col :span="8">
-                <div class="file-name" @click="goto_pptist">{{ name }}</div>
-            </el-col>
-            <el-col :span="8">
-                <div class="file-update-time">{{ updateTime | formatDate }}</div>
-            </el-col>
-            <el-col :span="8">
-            </el-col>
-        </el-row>
-    </div>
+  <div>
+    <t-row class="file-row">
+      <t-col :span="4">
+        <div class="file-name" @click="goto_pptist">{{ name }}</div>
+      </t-col>
+      <t-col :span="8">
+        <div class="file-update-time">{{ updateTime | formatDate }}</div>
+      </t-col>
+      <!-- <el-col :span="8">
+      </el-col> -->
+    </t-row>
+  </div>
   </template>
 
 <script>
@@ -34,16 +34,12 @@ export default {
 
     }
   },
+  computed() {
+    
+  },
   filters: {
     formatDate(time) {
-      const date = new Date(time)
-      const year = date.getFullYear()
-      const month = date.getMonth() + 1
-      const day = date.getDate()
-      const hour = date.getHours()
-      const minute = date.getMinutes()
-      const second = date.getSeconds()
-      return `${year}-${month}-${day} ${hour}:${minute}`
+      return new Date(time).toLocaleString([], { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
     }
   },
 
@@ -91,6 +87,7 @@ export default {
   font-weight: bold;
   cursor: pointer;
   color: #333;
+  overflow-x: auto;
 }
 
 .file-update-time {
