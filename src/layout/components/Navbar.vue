@@ -4,7 +4,7 @@
       <div class="dashboard-container">
         <img src="https://github.com/rumengkai/awesome-vue/assets/91320586/83f64d27-20a7-42e7-b6a4-30d828ff4365" 
           class="user-avatar1" @click="handlegotoIndex" />
-        <span @click="handlegotoDashboard">Home Page</span>
+        <span class="homepage" @click="handlegotoDashboard">Dashboard</span>
       </div>
     </div>
 
@@ -27,7 +27,7 @@
           </t-input>
           <t-button variant="outline" theme="primary" @click="handlegotoProjects" round>
             <HomeIcon slot="icon" />
-            我的
+            我的作品
           </t-button>
           <t-button variant="outline" theme="primary" @click.native="logout" round>
             <RemoveIcon slot="icon" />
@@ -117,14 +117,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .navbar {
-  height: 80px;
+  height: 70px;
   overflow: hidden;
   position: relative;
   background: #fff;
   // background: linear-gradient(to left, #8f94fb, #4e54c8); 
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-
+  border-bottom: 1px solid #8e8d8d97;
   .search-button-container {
     margin-top: -5px;
   }
@@ -141,13 +142,15 @@ export default {
     .dashboard-container {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      // justify-content: space-between;
 
       span {
-        font-size: 28px;
+        font-size: 24px;
+        font-weight: bold;
         cursor: pointer;
-        text-shadow: 2px 2px 4px hsla(0, 0, 0, 0.2);
-        background: linear-gradient(to right, #ff8a00, #e52e71);
+        // text-shadow: 2px 2px 4px hsla(0, 0, 0, 0.2);
+        background: linear-gradient(to right, #df73e998, #bd9bf3);
+        // background: black;
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -157,7 +160,7 @@ export default {
 
   .right-nav {
     float: right;
-    margin-top: 20px;
+    margin-top: 15px;
   }
 
   .nav-button {
@@ -174,6 +177,8 @@ export default {
     width: 60px;
     height: 60px;
     margin-top: 5px;
+    margin-left: 12px;
+    margin-right: 8px;
   }
 
   .user-avatar2 {

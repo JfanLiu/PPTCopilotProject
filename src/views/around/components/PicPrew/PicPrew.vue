@@ -107,13 +107,13 @@ export default {
     top:20px;
     font-size: 40px;
 }
-.closet{
+.close{
     display: inline-block;
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border:1px solid #fff;
-    margin-left:10px
+    margin-left:10px;
+    cursor: pointer;
 }
 
 </style>

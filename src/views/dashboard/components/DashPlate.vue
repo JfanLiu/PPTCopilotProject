@@ -17,7 +17,8 @@
       <img src="https://user-images.githubusercontent.com/75596353/236753989-c95dd9d6-029e-4456-aec4-dd65363a9c5d.png" alt="PPTCopilot Logo" class="logo">
       <h1>Welcome to PPTCopilot</h1>
       <h1>AI一键生成PPT</h1>
-      <p>输入你的内容主题，让AI为你一站式服务到底</p>
+
+      <h2 class="subtitle">输入你的内容主题，让AI为你<span class="suffix">一站式服务到底</span></h2>
     </div>
     <div class="container">
       <!-- <t-button type="primary" style="margin-top: 20px;margin-bottom: 20px" @click="jumpProject">立即使用</t-button> -->
@@ -124,6 +125,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.subtitle{
+  color: #282339;
+  font-size: 30px;
+  margin: 32px 0 0;
+}
+.subtitle .suffix{
+  -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+  background-image: linear-gradient(138deg, #3b2af9, #562cf7 22%, #dd34ee 89%, #f5e17d);
+}
 .background {
     /* background-image: linear-gradient(95deg, #5261f9, #fa69e2); */
     /* background-image: linear-gradient(to top, #5261f9, #ffffff); */
@@ -142,6 +153,7 @@ export default {
   margin: 0 auto;
   background: linear-gradient(to bottom, var(--el-color-primary-light-9), #ddf4ff);
   z-index: -1; /* 确保背景位于最底层 */
+  overflow-y: auto;
 }
 
 .dash-plate-header {

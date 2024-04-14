@@ -1,11 +1,11 @@
 <template>
   <div class="project-container">
     <t-card hover-shadow>
-      <div class="project-image">
+      <div class="project-image" @click="openFile">
         <img :src="image" alt="">
       </div>
-      <h3 class="project-ppt-title">{{ filenameWithoutSuffix }}</h3>
-      <p>{{ Updated }}</p>
+      <h2 class="project-ppt-title"> <span class="creator">{{ creator }}</span>/{{ filenameWithoutSuffix }}</h2>
+      <p>{{ Updated  | formatDate}}</p>
       <div class="project-actions">
         <t-row :gutter="5">
           <t-col :span="3">
@@ -16,8 +16,8 @@
           </t-col>
           <t-col :span="2" :offset="4">
             <t-tag theme="warning">
-              <HeartFilledIcon />
-              {{ star }}
+              <HeartFilledIcon/>
+             {{ star }}
             </t-tag>
           </t-col>
         </t-row>
@@ -52,6 +52,10 @@ export default {
     }
   },
   props: {
+    creator: {
+      type: String,
+      required: true
+    },
     id: {
       type: Number,
       required: true
@@ -81,6 +85,11 @@ export default {
       default: 0
     },
   },
+  filters: {
+    formatDate(time) {
+      return new Date(time).toLocaleString([], { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+    }
+  },
   computed: {
     filenameWithoutSuffix() {
       if (this.title.endsWith('.json')) {
@@ -98,6 +107,10 @@ export default {
       console.log('clone id:',this.id)
       clonePPT(this.id).then(response => {
         console.log(response)
+        this.$message({
+          message: '克隆成功',
+          type: 'success'
+        });
       }).catch(() =>{
         console.log('克隆失败')
       })
@@ -107,6 +120,10 @@ export default {
 </script>
 
 <style scoped>
+.creator{
+
+}
+
 .project-container {
   margin-bottom: 20px;
 }
@@ -119,6 +136,10 @@ export default {
   align-items: center;
 }
 
+.project-image :hover{
+  cursor: pointer;
+}
+
 .project-image img {
   max-width: 100%;
   max-height: 100%;
@@ -126,7 +147,7 @@ export default {
 }
 
 .project-ppt-title {
-  overflow-x: auto;
+  /* overflow-x: auto; */
 }
 </style>
 

@@ -4,7 +4,7 @@
       <el-aside>
         <SideBar />
       </el-aside>
-      <el-main>
+      <el-main class="elmain">
         <PPTSquare />
       </el-main>
     </el-container>
@@ -28,4 +28,9 @@ export default {
   background: linear-gradient(to top, #ffffff, #f0f0ff); /* 渐变从白色到淡紫色 */
   /* height: 100vh; */
 }   
+
+.elmain{
+  /* margin: 0px; */
+  /* padding: 0px; */
+}
 </style>

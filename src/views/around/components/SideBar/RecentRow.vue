@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <t-row class="file-row">
+  <div class="file-row" @click="goto_pptist">
+    <t-row  >
       <t-col :span="4">
-        <div class="file-name" @click="goto_pptist">{{ filenameWithoutSuffix }}</div>
+        <div class="file-name">{{ filenameWithoutSuffix }}</div>
       </t-col>
       <t-col :span="8">
         <div class="file-update-time">{{ updateTime | formatDate }}</div>
@@ -82,7 +82,8 @@ export default {
     font-size: 16px
 }
 .file-row:hover {
-    background-color: #f0f0f0; /* 设置鼠标悬停时的背景颜色 */
+    background-color: #f0f0ff; /* 设置鼠标悬停时的背景颜色 */
+    cursor: pointer;
 }
 
 .file-name {

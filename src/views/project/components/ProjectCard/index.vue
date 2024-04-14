@@ -2,16 +2,14 @@
   <div class="project-card">
     <el-container>
       <el-aside>
-        <div class="project-image">
-          <img :src="image" alt="">
+        <div class="project-image"  @click="openFile">
+          <img :src="image" alt="" >
         </div>
       </el-aside>
       <el-main>
-        <h3>{{ filenameWithoutSuffix }}</h3>
+        <span class="pptName" @click="openFile">{{ filenameWithoutSuffix }}</span>
         <p> <t-tag :class="{ 'public-tag': visible, 'private-tag': !visible }">{{ visible ? 'public' : 'private' }}</t-tag> {{ Updated }}</p>
         <div class="project-actions">
-          <t-button type="primary" @click="openFile">打开</t-button>
-          <!-- <t-button type="primary" @click="handleClick">打开</t-button> -->
           <div v-if="edit">
             <t-dropdown :options="options">
               <t-button variant="outline">
@@ -127,6 +125,16 @@ export default {
 }
 </script>
 <style scoped>
+.pptName:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+.pptName{
+  font-weight: bold;
+  font-size: 26px;
+}
+
+
 .project-card {
   border: 1px solid #ebebeb;
   border-radius: 4px;
@@ -154,6 +162,10 @@ export default {
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
+}
+.project-image :hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .project-image img {

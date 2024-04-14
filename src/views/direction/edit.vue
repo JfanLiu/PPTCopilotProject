@@ -201,6 +201,7 @@ export default {
           this.$router.push({
             path: '/pptist/index',
             query: {
+              project_id: this.$route.query.project_id,
               file_name: this.$route.query.file_name,
             }
           })

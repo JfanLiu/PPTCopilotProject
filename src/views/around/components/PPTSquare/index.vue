@@ -5,9 +5,9 @@
         <h1>{{title}}</h1>
         <t-divider></t-divider>
         <el-row :gutter="20">
-          <el-col v-for="item in pptList" :key="item.Id" :span="8">
+          <el-col v-for="item in pptList" :key="item.Id" :span="6">
             <ViewCard :image="getImageUrl(item.Project.Id, item.Name)" :title="item.Name" :id="item.Id"
-              :star="item.Star" :proj_id="item.Project.Id" />
+              :star="item.Star" :proj_id="item.Project.Id" :creator="item.Project.Creator.Username" :Updated="item.Updated"/>
           </el-col>
         </el-row>
       </div>
@@ -44,8 +44,9 @@ export default {
 </script>
 
 <style scoped>
-.project-view-container {
-  padding: 20px;
+.box-card {
+  background: linear-gradient(to top, #ffffff, #f0f0ff); 
+  /* padding: 20px; */
 }
 
 .view-container {

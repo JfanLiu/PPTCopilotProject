@@ -21,7 +21,7 @@
       :onConfirm="onDeleteConfirmAnother" :onCancel="onDeleteCancel" :onClose="deleteClose">
       <t-text>确定要删除项目吗？</t-text>
     </t-dialog>
-    <t-dialog header="可见性修改" body="对话框内容" :visible.sync="pubVisible" @confirm="onPubConfirm" :confirmOnEnter="true"
+    <t-dialog header="项目可见性修改" body="对话框内容" :visible.sync="pubVisible" @confirm="onPubConfirm" :confirmOnEnter="true"
       :onConfirm="onPubConfirmAnother" :onCancel="onPubCancel" :onClose="pubClose">
       <t-select v-model="PPTVisible" placeholder="请选择项目可见性">
         <t-option value=true>public</t-option>
