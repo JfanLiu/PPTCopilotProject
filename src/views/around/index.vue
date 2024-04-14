@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <t-layout>
-      <t-aside width="25%">
+    <el-container>
+      <el-aside>
         <SideBar />
-      </t-aside>
-      <t-content>
+      </el-aside>
+      <el-main>
         <PPTSquare />
-      </t-content>
-    </t-layout>
+      </el-main>
+    </el-container>
   </div>
 </template>
 <script>
@@ -25,15 +25,7 @@ export default {
 <style scoped>
 .container {
   /* display: flex; */
-  background: linear-gradient(to bottom, #ffffff, #f0f0ff); /* 渐变从白色到淡紫色 */
+  background: linear-gradient(to top, #ffffff, #f0f0ff); /* 渐变从白色到淡紫色 */
   /* height: 100vh; */
 }   
-
-/* .sidebar {
-  flex: 0 0 auto; 
-}
-
-.project-view-container {
-  flex: 1; 
-} */
 </style>

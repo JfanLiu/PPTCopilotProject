@@ -7,11 +7,13 @@
         </div>
       </t-header>
       <t-content>
-        <t-menu theme="light" defaultValue="dashboard" width="100%" style="margin-right: 0px">
-          <div v-for="file in RecentFiles" :key="file.Id" class="file-item">
-            <RecentRow :proj_id="file.Project.Id" :name="file.Name" :updateTime="file.Updated" />
-          </div>
-        </t-menu>
+        <div class="menu-container">
+          <t-menu theme="light" defaultValue="dashboard" width="100%" style="margin-right: 0px">
+            <div v-for="file in RecentFiles" :key="file.Id" class="file-item">
+              <RecentRow :proj_id="file.Project.Id" :name="file.Name" :updateTime="file.Updated" />
+            </div>
+          </t-menu>
+        </div>
       </t-content>
     </t-layout>    
   </div>
@@ -47,5 +49,9 @@ export default{
 <style>
 .recent-mod-header {
   text-align: center;
+}
+
+.menu-container {
+  height: 75vh;
 }
 </style>

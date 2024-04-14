@@ -1,19 +1,28 @@
 <template>
-  <div class="project-card">
-    <div class="project-image">
-      <img :src="image" alt="">
-    </div>
-    <h3>{{ title }}</h3>
-    <p>{{ Updated }}</p>
-    <div class="project-actions">
-      <t-button type="primary" @click="openFile">打开</t-button>
-      <span style="margin-left: 10px">
-      </span>
-      <t-tag theme="warning">
-        <HeartFilledIcon />
-        {{ star }}
-      </t-tag>
-    </div>
+  <div class="project-container">
+    <t-card hover-shadow>
+      <div class="project-image">
+        <img :src="image" alt="">
+      </div>
+      <h3 class="project-ppt-title">{{ filenameWithoutSuffix }}</h3>
+      <p>{{ Updated }}</p>
+      <div class="project-actions">
+        <t-row :gutter="5">
+          <t-col :span="3">
+            <t-button type="primary" @click="openFile">预览</t-button>
+          </t-col>
+          <t-col :span="3">
+            <t-button type="primary" @click="clone">克隆</t-button>
+          </t-col>
+          <t-col :span="2" :offset="4">
+            <t-tag theme="warning">
+              <HeartFilledIcon />
+              {{ star }}
+            </t-tag>
+          </t-col>
+        </t-row>
+      </div>
+    </t-card>
   </div>
 </template>
   
@@ -57,51 +66,43 @@ export default {
       default: 0
     },
   },
+  computed: {
+    filenameWithoutSuffix() {
+      if (this.title.endsWith('.json')) {
+        return this.title.slice(0, -5)
+      }
+      return this.title
+    }
+  },
   methods: {
     openFile() {
       this.$router.push({ path: '/project/' + this.id + '/file' })
     },
   }
 }
-
 </script>
 
 <style scoped>
-.project-card {
-  border: 1px solid #ebebeb;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;  
-  /* padding: 5px; */
-  margin: 10px;
-}
-
-.project-card:hover {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.project-container {
+  margin-bottom: 20px;
 }
 
 .project-image {
-  height: 200px;
-  width: 300px;
+  height: 50%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin-bottom: 10px; */
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;  
 }
 
 .project-image img {
   max-width: 100%;
   max-height: 100%;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;  
+  border-radius: 10px; 
 }
 
-.project-actions {
-  margin-top: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.project-ppt-title {
+  overflow-x: auto;
 }
 </style>
 
