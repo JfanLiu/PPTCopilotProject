@@ -81,7 +81,6 @@ export default {
     return {
       carouselImages: [
         'https://fc1tn.baidu.com/it/u=2554800398,4089275240&fm=202&mola=new&crop=v1',
-        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F9505809d-7daa-4913-bd5f-58d6e8fa746d%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1686049367&t=d5c1f96a95471f68115accf3e4ee030f',
         'https://img2.baidu.com/it/u=1237386574,2964608939&fm=253&fmt=auto&app=138&f=JPEG?w=667&h=500',
         'https://img1.baidu.com/it/u=12865346,113216081&fm=253&fmt=auto&app=138&f=GIF?w=976&h=500'
       ],

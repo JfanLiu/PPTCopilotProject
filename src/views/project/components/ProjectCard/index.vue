@@ -2,16 +2,14 @@
   <div class="project-card">
     <el-container>
       <el-aside>
-        <div class="project-image">
-          <img :src="image" alt="">
+        <div class="project-image"  @click="openFile">
+          <img :src="image" alt="" >
         </div>
       </el-aside>
       <el-main>
-        <h3>{{ filenameWithoutSuffix }}</h3>
+        <span class="pptName" @click="openFile">{{ filenameWithoutSuffix }}</span>
         <p> <t-tag :class="{ 'public-tag': visible, 'private-tag': !visible }">{{ visible ? 'public' : 'private' }}</t-tag> {{ Updated }}</p>
         <div class="project-actions">
-          <t-button type="primary" @click="openFile">打开</t-button>
-          <!-- <t-button type="primary" @click="handleClick">打开</t-button> -->
           <div v-if="edit">
             <t-dropdown :options="options">
               <t-button variant="outline">
@@ -35,7 +33,7 @@ export default {
           content: '重命名',
           value: 'rename',
           onClick: () => {
-            this.handleRename(this.proj_id)
+            this.handleRename(this.proj_id, this.filename)
           }
         },
         {
@@ -45,6 +43,13 @@ export default {
             this.handleDelete(this.proj_id, this.filename)
           }
         },
+        {
+          content: '可见性',
+          value: 'visible',
+          onClick: () => {
+            this.handleVisible(this.file_id, this.filename, this.visible)
+          }
+        }
       ]
     }
   },
@@ -70,11 +75,19 @@ export default {
       type: Number,
       default: 1
     },
+    file_id:{
+      type: Number,
+      default: 1
+    },
     handleDelete: {
       type: Function,
       required: true
     },
     handleRename: {
+      type: Function,
+      required: true
+    },
+    handleVisible: {
       type: Function,
       required: true
     },
@@ -98,9 +111,11 @@ export default {
       console.log(this.image)
     },
     openFile() {
+      console.log('openFile:',this.proj_id, this.filename)
       this.$router.push({
         path: '/pptist/index',
         query: {
+          project_id: this.proj_id,
           file_name: this.filename,
         }
       })
@@ -110,6 +125,16 @@ export default {
 }
 </script>
 <style scoped>
+.pptName:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+.pptName{
+  font-weight: bold;
+  font-size: 26px;
+}
+
+
 .project-card {
   border: 1px solid #ebebeb;
   border-radius: 4px;
@@ -137,6 +162,10 @@ export default {
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
+}
+.project-image :hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .project-image img {

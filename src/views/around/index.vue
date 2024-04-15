@@ -4,8 +4,11 @@
       <el-aside>
         <SideBar />
       </el-aside>
-      <el-main>
+      <el-main class="elmain">
+        <el-card class="box-card">
+        <span style="font-size: 32px;"><strong>PPT广场</strong></span>
         <PPTSquare />
+        </el-card>
       </el-main>
     </el-container>
   </div>
@@ -28,4 +31,10 @@ export default {
   background: linear-gradient(to top, #ffffff, #f0f0ff); /* 渐变从白色到淡紫色 */
   /* height: 100vh; */
 }   
+
+.box-card{
+  height: 85vh;
+  /* margin: 0px; */
+  /* padding: 0px; */
+}
 </style>

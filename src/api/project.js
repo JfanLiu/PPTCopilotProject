@@ -7,6 +7,16 @@ export function getProject(id) {
   })
 }
 
+export function clonePPT(file_id){
+  return request({
+    url: '/ppt/clone',
+    method: 'post',
+    params: {
+      file_id: file_id
+    }
+  })
+}
+
 export function getPPTList(id) {
   return request({
     url: '/user/' + id + '/ppt',
@@ -66,6 +76,19 @@ export function updateProject(id, data) {
   })
 }
 
+export function RenamePPT(id, oldName, newName) {
+  console.log('oldname:',oldName)
+  console.log('newname:',newName)
+  return request({
+    url: '/project/' + id + '/file/update_name',
+    method: 'post',
+    data: {
+      old_name: oldName,
+      new_name: newName
+    }
+  })
+}
+
 export function uploadFile(id, data) {
   return request({
     url: '/project/' + id + '/file',
@@ -82,9 +105,19 @@ export function deleteFile(id, filename) {
 }
 
 
+export function changePub(id, visible) {
+  console.log('visible:', id, visible)
+  return request({
+    url: '/ppt/visible',
+    method: 'put',
+    params: {
+      file_id: id,
+      visible: visible
+    }
+  })
+}
 
 export function getStaticFile(projectId, fileName) {
-  console.log(fileName)
   return request({
     url: '/_static/project/' + projectId + '/' + fileName + '/' + fileName,
     method: 'get',
@@ -102,9 +135,20 @@ export function saveStaticFile(projectId, fileName, fileBlob) {
   });
 }
 
-export function saveCover(id, filename, data) {   
+export function saveCover(id, filename, data) {
   return request({
     url: '/_static/project/' + id + '/' + filename + '/' + 'cover.png',
+    method: 'post',
+    data: data,
+    headers: {
+      'Content-Type': 'plain/text'
+    }
+  });
+}
+
+export function saveContent(id, filename, data) {
+  return request({
+    url: '/_static/project/' + id + '/' + filename + '/' + 'content.png',
     method: 'post',
     data: data,
     headers: {
@@ -117,6 +161,18 @@ export function GetPPTHistory(){
   return request({
     url: '/ppt/history',
     method: 'get',
+  })
+}
+
+export function UpdateHistory(proj_id, filename){
+  console.log('UpdateHistory:', proj_id, filename)
+  return request({
+    url: '/ppt/history',
+    method: 'post',
+    params: {
+      project_id: proj_id,
+      filename: filename
+    }
   })
 }
 

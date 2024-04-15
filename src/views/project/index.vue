@@ -1,5 +1,6 @@
 <template>
   <div class="project-container">
+    <div class="background"></div>
     <el-container>
       <el-aside width="25%">
         <el-card>
@@ -12,7 +13,7 @@
           <t-row>
             <t-descriptions title="个人信息" layout="vertical">
               <t-descriptions-item label="用户名">{{ name }}</t-descriptions-item>
-              <t-descriptions-item label="描述">{{ description || "这个人很懒，什么也没留下"  }}</t-descriptions-item>
+              <t-descriptions-item label="个性签名">{{ description || "这个人很懒，什么也没留下"  }}</t-descriptions-item>
               <t-descriptions-item label="ID">{{ id }}</t-descriptions-item>
             </t-descriptions>
           </t-row>
@@ -39,7 +40,7 @@
                 :confirmBtn="{ content:'下一步', }">
                 <t-label>PPT名称</t-label>
                 <t-input v-model="newPPTName" placeholder="请输入PPT名称"></t-input>
-                <span v-if="showNameErr" style="color: red;">项目名太短</span>
+                <span v-if="showNameErr" style="color: red;">项目名不能为空！</span>
                 <br>
                 <t-lable>PPT可见性</t-lable>
                 <t-select v-model="newPPTVisible" placeholder="请选择项目可见性">
@@ -102,46 +103,25 @@ export default {
     },
     onCreateConfirm() {
       console.log('confirm another')
-      if(this.newPPTName.length < 3){
-        console.log('项目名太短')
+      console.log(this.newPPTVisible)
+      console.log(this.newPPTVisible === 'public')
+      if(this.newPPTName.length < 1){
+        console.log('项目名不能为空！')
         this.showNameErr = true
         return
       }
       else{
         this.showNameErr = false
       }
-      // this.dialogFormVisible = false
       this.createVisible = false;
-      // console.log('AAA')
-      // console.log({
-      //     // project_id: this.id,
-      //     file_name: this.newPPTName + '.json',
-      //     visible: `${this.newPPTVisible === 'public'}`,
-      //   })
       this.$router.push({
         path: '/direction/index',
         query: {
-          // project_id: this.id,
+          project_id: this.id,
           file_name: this.newPPTName + '.json',
           visible: `${this.newPPTVisible === 'public'}`,
         }
       });
-      // createProject({
-      //   'name': this.newPPTName,
-      //   'description': '暂无简介',
-      //   'visible': this.newPPTVisible === 'public'
-      // }).then(response => {
-      //   console.log(response)
-      //   this.loadData();
-      //   this.$message({
-      //     type: 'success',
-      //     message: '项目' + this.newPPTName + '添加成功'
-      //   })
-      // }).catch((err) => {
-      //   console.log(err)
-      // }).finally(() => {
-      //   this.createVisible = false;
-      // })
     },
     loadData() {
       getPPTList(this.id).then(response => {
@@ -154,9 +134,20 @@ export default {
 }
 </script>
 <style>
+.background {
+    background: linear-gradient(0deg, #ffffff, #f0f0ff);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    top: 0;
+    z-index: -1
+}
+
 /* .project-container {
   height: 100vh;
 } */
+
 
 .avatar-container {
   width: 80%;

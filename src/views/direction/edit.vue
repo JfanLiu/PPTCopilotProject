@@ -190,13 +190,7 @@ export default {
       update_outline(this.outline_id, {
         'outline' : this.convert_tree_to_xml(this.data)
       }).then(res => {
-        // console.log('CCC')
-        // console.log({
-        //   'outline_id': parseInt(this.outline_id),
-        //   'template_id': parseInt(this.$route.query.template_id),
-        //   'file_name': this.$route.query.file_name,
-        //   'visible': this.$route.query.visible === 'true'
-        // })
+        console.log('direction/edit里的visible:', this.$route.query)
         gen_ppt({
           'outline_id': parseInt(this.outline_id),
           'template_id': parseInt(this.$route.query.template_id),
@@ -207,6 +201,7 @@ export default {
           this.$router.push({
             path: '/pptist/index',
             query: {
+              project_id: this.$route.query.project_id,
               file_name: this.$route.query.file_name,
             }
           })
