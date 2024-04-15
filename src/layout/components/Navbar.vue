@@ -13,7 +13,7 @@
         <t-space align="center" :separator="separator">
           <t-input 
             id="searchInput"
-            v-model="search_msg" 
+            v-model="filter_words" 
             placeholder="搜索PPT"
             :status="searchStatus()"
             :tips="searchTips()"
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import { searchProjects } from '@/api/search';
+import eventBus from '@/layout/components/eventBus';
 import { mapGetters } from "vuex";
 import {
   SearchIcon,
@@ -55,7 +57,7 @@ export default {
   data() {
     return {
       is_focused: 0,
-      search_msg: "",
+      filter_words: "",
       img_url: "",
       page_name: "Home Page",
     };
@@ -75,19 +77,42 @@ export default {
     handlegotoDashboard() {
       this.$router.push("/around/index");
     },
-    handlegotoSearch() {
-      this.$router.push("/index");
-    },
+    // handlegotoSearch() {
+    //   this.$router.push("/index");
+    // },
+    // searchProjectsHandler() {
+    //   if (!this.filterWords) {
+    //     this.$message.error('请输入搜索关键字')
+    //     return
+    //   }
+      
+    // },
     handleSearch() {
-      // console.log('搜索PPT')
-      // this.$router.push("/index");
+      this.$router.push("/around/index");
+
+      searchProjects(this.filter_words).then((res) => {
+        console.log('response')
+        // console.log(res)
+        // this.totalResults = res.data.length
+        // this.totalProjects = res.data
+        // this.projects = res.data.slice(0, this.pageSize)
+        eventBus.$emit('get-search-ppt', res.data === null ? [] : res.data)
+        console.log('搜索PPT完成，关键词为', this.filter_words)
+      }).catch((err) => {
+        console.log(err)
+      })
+      // try {
+        
+      // } catch (error) {
+      //   this.$message.error('搜索失败，请稍后再试')
+      // }
     },
     searchStatus() {
-      const status = (this.is_focused && this.search_msg.trim() === '') ? 'error' : ''
+      const status = (this.is_focused && this.filter_words.trim() === '') ? 'error' : ''
       return status
     },
     searchTips() {
-      const tips = (this.is_focused && this.search_msg.trim() === '') ? '请输入PPT名称' : ''
+      const tips = (this.is_focused && this.filter_words.trim() === '') ? '请输入PPT名称' : ''
       return tips
     },
 

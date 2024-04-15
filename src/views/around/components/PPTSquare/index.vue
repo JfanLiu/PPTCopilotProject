@@ -16,6 +16,7 @@
 </template>
 <script>
 import { getAllPublic } from "@/api/project";
+import eventBus from "@/layout/components/eventBus";
 import ViewCard from "@/views/around/components/PPTSquare/ViewCard.vue";
 export default {
   name: "PPTSquare",
@@ -28,17 +29,31 @@ export default {
     }
   },
   created() {
-    getAllPublic().then(response => {
-      console.log(response)
-      this.pptList = response.data;
-      // 随机排序
-      // this.pptList.sort(() => Math.random() - 0.5);
+    this.fetchPPTList()
+
+    eventBus.$on('get-search-ppt', data => {
+      this.updatePPTList(data)
     })
   },
   methods: {
-    // getImageUrl(id) {
-    //     return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/ppt_cover/" + id + "/cover.png?time=" + new Date().getTime();
-    // },  
+    fetchPPTList() {
+      getAllPublic().then(response => {
+        console.log(response)
+        // this.$set(this, 'pptList', response.data)
+        this.pptList = response.data;
+        // 随机排序
+        // this.pptList.sort(() => Math.random() - 0.5);
+      })
+    },
+    updatePPTList(data) {
+      // console.log('搜索得到PPT，更新PPT广场')
+      console.log('data')
+      console.log(data)
+      // this.pptList = data
+      // this.$set(this, 'pptList', data)
+      console.log('pptList')
+      console.log(this.pptList)
+    },
     getImageUrl(id, fileName) {
       return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + '/' + fileName + "/cover.png?t=" + new Date().getTime()
     },

@@ -38,7 +38,6 @@ export default {
   data() {
     return {
       filterWords: '',
-      sortMethod: 'best-match',
       totalProjects: [],
       projects: [],
       currentPage: 1,
@@ -53,7 +52,8 @@ export default {
         return
       }
       try {
-        searchProjects(this.filterWords, this.sortMethod).then((res) => {
+        console.log('搜索PPT')
+        searchProjects(this.filterWords).then((res) => {
           console.log(res)
           this.totalResults = res.data.length
           this.totalProjects = res.data
