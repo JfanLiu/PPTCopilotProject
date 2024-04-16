@@ -3,8 +3,15 @@
       <div class="view-container">
         <el-row :gutter="20">
           <el-col v-for="item in pptList" :key="item.Id" :span="6">
-            <ViewCard :image="getImageUrl(item.Project.Id, item.Name)" :title="item.Name" :id="item.Id"
-              :star="item.Star" :proj_id="item.Project.Id" :creator="item.Project.Creator.Username" :Updated="item.Updated"/>
+            <!-- <ViewCard :image="getImageUrl(item.Project.Id, item.Name)" :title="item.Name" :id="item.Id"
+              :star="item.Star" :proj_id="item.Project.Id" :creator="item.Project.Creator.Username" :Updated="item.Updated"/> -->
+            <ViewCard 
+              :image="getImageUrl(item.Project.Id, item.Name)" 
+              :title="item.Name"
+              :id="item.Id"
+              :proj_id="item.Project.Id" 
+              :creator="item.Project.Creator.Username" 
+              :Updated="item.Updated"/>
           </el-col>
         </el-row>
       </div>

@@ -69,14 +69,14 @@ export default {
       type: String,
       default: ''
     },
-    edit: {
-      type: Boolean,
-      default: false
-    },
-    star: {
-      type: Number,
-      default: 0
-    },
+    // edit: {
+    //   type: Boolean,
+    //   default: false
+    // },
+    // star: {
+    //   type: Number,
+    //   default: 0
+    // },
   },
   filters: {
     formatDate(time) {

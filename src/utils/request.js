@@ -4,7 +4,7 @@ import store from '@/store'
 import { getToken, setToken } from '@/utils/auth'
 
 const service = axios.create({
-  baseURL: 'http://'+process.env.VUE_APP_BACKEND_IP+':8080',
+  baseURL: 'http://' + process.env.VUE_APP_BACKEND_IP + ':8080',
   // 跨域请求时是否需要使用凭证
   withCredentials: true,
   timeout: 500000
@@ -16,7 +16,7 @@ service.interceptors.request.use(
     if (store.getters.token) {
       // 让每个请求携带自定义token
       config.headers['token'] = getToken()
-      // console.log(config.headers['token'])
+      console.log(config.headers['token'])
     }
     return config
   },
@@ -36,7 +36,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     const contentType = response.headers['content-type']
-    if(res.code === undefined) { // 文件
+    if (res.code === undefined) { // 文件
       return res;
     }
 
@@ -46,7 +46,7 @@ service.interceptors.response.use(
         type: 'error',
         duration: 5 * 1000
       })
-      
+
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
       return res

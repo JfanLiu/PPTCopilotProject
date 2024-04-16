@@ -98,6 +98,8 @@ export default {
     handleLogin() {
       this.loading = true
       this.$store.dispatch('user/login', this.loginForm).then(() => {
+        console.log('登陆成功')
+        console.log(this.redirect)
         this.$router.push({path: this.redirect || '/'})
         this.loading = false
       }).catch(() => {

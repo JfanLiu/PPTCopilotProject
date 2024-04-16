@@ -46,14 +46,17 @@ const actions = {
     const { username_or_email, password } = loginForm
     return new Promise((resolve, reject) => {
       login({ username_or_email: username_or_email, password: password }).then(response => {
-        const { token,data } = response
+        const { token, data } = response
         console.log(data)
+        console.log('token:', token)
         commit('SET_TOKEN', token)
         commit('SET_NAME', data.Username)
         commit('SET_ID', data.Id)
         commit('SET_EMAIL', data.Email)
         commit('SET_DES', data.Description)
         setToken(token)
+        console.log('token:', getToken())
+
         resolve(data)
       }).catch(error => {
         reject(error)
