@@ -25,10 +25,25 @@
             <el-row>
               <div class="header-container">
                 <span><strong>我的作品</strong></span>
-                <t-button class="button_type pan-btn blue-btn" @click="handleCreate">
-                  <add-icon slot="icon" />
-                  新建PPT
-                </t-button>
+                <t-space>
+                  <t-input
+                    v-model="filterWords"
+                    placeholder="搜索我的PPT"
+                    :status="searchStatus"
+                    :tips="searchTips"
+                    :style="{ width: '400px' }"
+                    @focus="isFocused = 1"
+                    @blur="isFocused = 0"
+                    @enter="handleSearch">
+                    <template #suffixIcon>
+                      <SearchIcon :style="{ cursor: 'pointer' }" @click="handleSearch" />
+                    </template>
+                  </t-input>
+                  <t-button class="button_type pan-btn blue-btn" @click="handleCreate">
+                    <add-icon slot="icon" />
+                    新建PPT
+                  </t-button>
+                </t-space>
               </div>
               
               <t-dialog 
@@ -38,11 +53,11 @@
                 @confirm="onCreateConfirm"
                 :confirmOnEnter="true" 
                 :confirmBtn="{ content:'下一步', }">
-                <t-label>PPT名称</t-label>
+                  PPT名称
                 <t-input v-model="newPPTName" placeholder="请输入PPT名称"></t-input>
                 <span v-if="showNameErr" style="color: red;">项目名不能为空！</span>
                 <br>
-                <t-lable>PPT可见性</t-lable>
+                  PPT可见性
                 <t-select v-model="newPPTVisible" placeholder="请选择项目可见性">
                   <t-option value="public">public</t-option>
                   <t-option value="private">private</t-option>
@@ -50,7 +65,7 @@
               </t-dialog>
             </el-row>
             <el-row>
-              <ProjectList :project-list="this.projectList" :edit="this.edit" />
+              <ProjectList :project-list="this.userPPTList" :edit="this.edit" />
             </el-row>
           </div>
         </el-card>
@@ -59,25 +74,28 @@
   </div>
 </template>
 <script>
-
+import { searchUserPPT } from '@/api/search';
 import ProjectList from "@/views/project/components/ProjectList/index.vue"
 import { createProject, getPPTList } from "@/api/project"
 import { mapGetters } from "vuex";
-import { AddIcon } from 'tdesign-icons-vue';
+import { AddIcon, SearchIcon } from 'tdesign-icons-vue';
 
 export default {
   components: {
     ProjectList,
-    AddIcon
+    AddIcon,
+    SearchIcon
   },
   data() {
     return {
-      projectList: [],
+      userPPTList: [],
       edit: true,
       createVisible: false,
       newPPTVisible: 'public',
       newPPTName: '',
       showNameErr: false,
+      filterWords: "", 
+      isFocused: 0,
     }
   },
   mounted() {
@@ -87,13 +105,25 @@ export default {
     this.avatar_url = "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/user/" + this.id + "/avatar.png?time=" + new Date().getTime();
   },
   computed: {
-    ...mapGetters(["id","name","description"])
+    ...mapGetters(["id", "name", "description"]),
+    searchStatus(){
+      return (this.isFocused && this.filterWords.trim() === '') ? 'error' : ''
+    },
+    searchTips(){
+      return (this.isFocused && this.filterWords.trim() === '') ? '请输入PPT名称' : ''
+    },
   },
   methods: {
-
     handleCommand(id) {
       //进入文件
       console.log('click')
+    },
+    handleSearch() {
+      searchUserPPT(this.filterWords).then((res) => {
+        this.userPPTList = res.data
+      }).catch((err) => {
+        console.log(err)
+      })
     },
     handleCreate() {
       this.createVisible = true;
@@ -125,9 +155,9 @@ export default {
     },
     loadData() {
       getPPTList(this.id).then(response => {
-        console.log(response);
-        this.projectList = response.data;
-        console.log(this.projectList);
+        // console.log(response);
+        this.userPPTList = response.data;
+        // console.log(this.userPPTList);
       })
     }
   }
@@ -168,5 +198,5 @@ export default {
 
 .header-container > span {
   font-size: 32px;
-}
+} 
 </style>

@@ -12,7 +12,7 @@
       <div class="avatar-wrapper">
         <t-space align="center">
           <t-input
-            v-model="search_msg"
+            v-model="filter_words"
             placeholder="搜索PPT"
             :status="searchStatus"
             :tips="searchTips"
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { searchProjects } from '@/api/search';
+import { searchPPT } from '@/api/search';
 import eventBus from '@/layout/components/eventBus';
 import { mapGetters } from "vuex";
 import {
@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       is_focused: 0,
-      search_msg: "",
+      filter_words: "",
       img_url: ""
     };
   },
@@ -71,10 +71,10 @@ export default {
   computed: {
     ...mapGetters(["sidebar", "avatar", "id"]),
     searchStatus() {
-      return (this.is_focused && this.search_msg.trim() === '') ? 'error' : ''
+      return (this.is_focused && this.filter_words.trim() === '') ? 'error' : ''
     },
     searchTips() {
-      return (this.is_focused && this.search_msg.trim() === '') ? '请输入PPT名称' : ''
+      return (this.is_focused && this.filter_words.trim() === '') ? '请输入PPT名称' : ''
     },
   },
   methods: {
@@ -84,7 +84,7 @@ export default {
     handleSearch() {
       this.$router.push("/around/index");
 
-      searchProjects(this.search_msg).then((res) => {
+      searchPPT(this.filter_words).then((res) => {
         eventBus.$emit('get-search-ppt', res.data === null ? [] : res.data)
       }).catch((err) => {
         console.log(err)

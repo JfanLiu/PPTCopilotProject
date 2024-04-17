@@ -19,7 +19,7 @@
     </t-dialog>
     <t-dialog header="删除项目" body="对话框内容" :visible.sync="deleteVisible" @confirm="onDeleteConfirm" :confirmOnEnter="true"
       :onConfirm="onDeleteConfirmAnother" :onCancel="onDeleteCancel" :onClose="deleteClose">
-      <t-text>确定要删除项目吗？</t-text>
+      确定要删除项目吗？
     </t-dialog>
     <t-dialog header="项目可见性修改" body="对话框内容" :visible.sync="pubVisible" @confirm="onPubConfirm" :confirmOnEnter="true"
       :onConfirm="onPubConfirmAnother" :onCancel="onPubCancel" :onClose="pubClose">
@@ -98,7 +98,7 @@ export default {
       this.pubVisible = true;
       this.file_id = id;
       this.PPTVisible = isVisible
-      console.log('PPTVisible:', this.PPTVisible)
+      // console.log('PPTVisible:', this.PPTVisible)
     },
     onRenameConfirm() {
       console.log('confirm')

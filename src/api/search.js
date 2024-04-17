@@ -1,7 +1,17 @@
 import request from '@/utils/request'
-export function searchProjects(filterWords) {
+export function searchPPT(filterWords) {
   return request({
     url: '/ppt/search',
+    method: 'get',
+    params: {
+      filter_words: filterWords,
+    }
+  })
+}
+
+export function searchUserPPT(filterWords) {
+  return request({
+    url: '/ppt/search/user',
     method: 'get',
     params: {
       filter_words: filterWords,

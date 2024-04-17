@@ -4,8 +4,6 @@
       <t-header>
         <div>
           <h1 class="recent-mod-header">Recent Activities</h1>
-          <t-divider></t-divider>
-          <p>ss</p>
         </div>
       </t-header>
       <t-content>
