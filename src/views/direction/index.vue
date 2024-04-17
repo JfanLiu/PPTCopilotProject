@@ -111,6 +111,7 @@ export default {
 </script>
 <style scoped>
 .container {
+  background: linear-gradient(0deg, #ffffff, 30%,#f0f0ff);
   max-width: 1500px;
   margin: 0 auto;
   padding: 20px;

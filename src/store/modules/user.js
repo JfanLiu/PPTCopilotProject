@@ -54,6 +54,8 @@ const actions = {
         commit('SET_EMAIL', data.Email)
         commit('SET_DES', data.Description)
         setToken(token)
+        console.log(token)
+        console.log(getToken(token))
         resolve(data)
       }).catch(error => {
         reject(error)

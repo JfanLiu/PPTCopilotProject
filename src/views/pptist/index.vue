@@ -119,7 +119,10 @@ export default {
 
 <style scoped>
 #app {
-  height: 800px;
+  height: 91vh;
   width: 100%;
+}
+#pptist-frame {
+  
 }
 </style>

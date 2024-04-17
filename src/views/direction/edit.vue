@@ -406,8 +406,14 @@ export default {
 </script>
 <style>
 .outline-card {
+  background: linear-gradient(0deg, #ffffff, #f0f0ff);
   width: 1500px;
   margin: 0 auto;
+}
+
+.el-tree{
+  padding-top:20px;
+  padding-bottom:20px;
 }
 
 .custom-tree-node {
@@ -415,7 +421,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 20px;
   padding-right: 8px;
 }
 
