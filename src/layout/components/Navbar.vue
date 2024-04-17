@@ -3,23 +3,22 @@
     <div class="left-nav">
       <div class="dashboard-container">
         <img src="https://github.com/rumengkai/awesome-vue/assets/91320586/83f64d27-20a7-42e7-b6a4-30d828ff4365" 
-          class="user-avatar1" @click="handlegotoIndex" />
+          class="user-avatar1" @click="handlegotoDashboard" />
         <span class="homepage" @click="handlegotoDashboard">Dashboard</span>
       </div>
     </div>
 
     <div class="right-nav">
       <div class="avatar-wrapper">
-        <t-space align="center" :separator="separator">
-          <t-input 
-            id="searchInput"
-            v-model="search_msg" 
+        <t-space align="center">
+          <t-input
+            v-model="filter_words"
             placeholder="搜索PPT"
-            :status="searchStatus()"
-            :tips="searchTips()"
+            :status="searchStatus"
+            :tips="searchTips"
             :style="{ width: '400px' }"
-            @focus="is_focused=1"
-            @blur="is_focused=0"
+            @focus="is_focused = 1"
+            @blur="is_focused = 0"
             @enter="handleSearch">
             <template #suffixIcon>
               <SearchIcon :style="{ cursor: 'pointer' }" @click="handleSearch" />
@@ -45,6 +44,8 @@
 </template>
 
 <script>
+import { searchPPT } from '@/api/search';
+import eventBus from '@/layout/components/eventBus';
 import { mapGetters } from "vuex";
 import {
   SearchIcon,
@@ -55,9 +56,8 @@ export default {
   data() {
     return {
       is_focused: 0,
-      search_msg: "",
-      img_url: "",
-      page_name: "Home Page",
+      filter_words: "",
+      img_url: ""
     };
   },
   created() {
@@ -70,30 +70,26 @@ export default {
   },
   computed: {
     ...mapGetters(["sidebar", "avatar", "id"]),
+    searchStatus() {
+      return (this.is_focused && this.filter_words.trim() === '') ? 'error' : ''
+    },
+    searchTips() {
+      return (this.is_focused && this.filter_words.trim() === '') ? '请输入PPT名称' : ''
+    },
   },
   methods: {
     handlegotoDashboard() {
       this.$router.push("/around/index");
     },
-    handlegotoIndex() {
-      this.$router.push("/");
-    },
-    handlegotoSearch() {
-      this.$router.push("/index");
-    },
     handleSearch() {
-      console.log('搜索PPT')
-      this.$router.push("/index");
-    },
-    searchStatus() {
-      const status = (this.is_focused && this.search_msg.trim() === '') ? 'error' : ''
-      return status
-    },
-    searchTips() {
-      const tips = (this.is_focused && this.search_msg.trim() === '') ? '请输入PPT名称' : ''
-      return tips
-    },
+      this.$router.push("/around/index");
 
+      searchPPT(this.filter_words).then((res) => {
+        eventBus.$emit('get-search-ppt', res.data === null ? [] : res.data)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
     handlegotoProjects() {
       this.$router.push("/project/index");
     },

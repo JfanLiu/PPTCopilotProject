@@ -3,8 +3,13 @@
       <div class="view-container">
         <el-row :gutter="20">
           <el-col v-for="item in pptList" :key="item.Id" :span="6">
-            <ViewCard :image="getImageUrl(item.Project.Id, item.Name)" :title="item.Name" :id="item.Id"
-              :star="item.Star" :proj_id="item.Project.Id" :creator="item.Project.Creator.Username" :Updated="item.Updated"/>
+            <ViewCard 
+              :image="getImageUrl(item.Project.Id, item.Name)" 
+              :title="item.Name"
+              :id="item.Id"
+              :proj_id="item.Project.Id" 
+              :creator="item.Project.Creator.Username" 
+              :Updated="item.Updated"/>
           </el-col>
         </el-row>
       </div>
@@ -12,6 +17,7 @@
 </template>
 <script>
 import { getAllPublic } from "@/api/project";
+import eventBus from "@/layout/components/eventBus";
 import ViewCard from "@/views/around/components/PPTSquare/ViewCard.vue";
 export default {
   name: "PPTSquare",
@@ -24,14 +30,25 @@ export default {
     }
   },
   created() {
-    getAllPublic().then(response => {
-      console.log(response)
-      this.pptList = response.data;
-      // 随机排序
-      // this.pptList.sort(() => Math.random() - 0.5);
+    this.fetchPPTList()
+
+    eventBus.$on('get-search-ppt', data => {
+      this.updatePPTList(data)
     })
   },
   methods: {
+    fetchPPTList() {
+      getAllPublic().then(response => {
+        console.log(response)
+        // this.$set(this, 'pptList', response.data)
+        this.pptList = response.data;
+        // 随机排序
+        // this.pptList.sort(() => Math.random() - 0.5);
+      })
+    },
+    updatePPTList(data) {
+      this.pptList = data
+    },
     getImageUrl(id, fileName) {
       return "http://"+process.env.VUE_APP_BACKEND_IP+":8080/_static/project/" + id + '/' + fileName + "/cover.png?t=" + new Date().getTime()
     },

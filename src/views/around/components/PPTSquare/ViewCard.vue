@@ -4,14 +4,21 @@
       <div class="project-image" @click="openFile">
         <img :src="image" alt="">
       </div>
-      <h2 class="project-ppt-title"> <span class="creator">{{ creator }}</span> : {{ filenameWithoutSuffix }}</h2>
+      <t-tooltip 
+        :content="creator + ':' + filenameWithoutSuffix"
+        :showArrow="false"
+        placement="bottom"
+        theme="primary">
+        <h2 class="project-ppt-title"> <span class="creator">{{ creator }}</span> : {{ filenameWithoutSuffix }}</h2>
+      </t-tooltip>
+      <hr>
       <div class="project-actions">
         <t-row>
           <t-col :span="9">
             <span>{{ Updated  | formatDate}}</span>
           </t-col>
           <t-col :span="3">
-            <t-button type="primary" @click="clone">克隆</t-button>
+            <t-button @click="clone">克隆</t-button>
           </t-col>
         </t-row>
       </div>
@@ -69,14 +76,14 @@ export default {
       type: String,
       default: ''
     },
-    edit: {
-      type: Boolean,
-      default: false
-    },
-    star: {
-      type: Number,
-      default: 0
-    },
+    // edit: {
+    //   type: Boolean,
+    //   default: false
+    // },
+    // star: {
+    //   type: Number,
+    //   default: 0
+    // },
   },
   filters: {
     formatDate(time) {
@@ -113,9 +120,6 @@ export default {
 </script>
 
 <style scoped>
-.creator{
-
-}
 
 .project-container {
   margin-bottom: 20px;
@@ -141,7 +145,9 @@ export default {
 }
 
 .project-ppt-title {
-  /* overflow-x: auto; */
+  white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 </style>
 

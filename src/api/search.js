@@ -1,11 +1,20 @@
 import request from '@/utils/request'
-export function searchProjects(filterWords, sortMethod) {
+export function searchPPT(filterWords) {
   return request({
-    url: '/project/search',
+    url: '/ppt/search',
     method: 'get',
     params: {
       filter_words: filterWords,
-      sort_method: sortMethod
+    }
+  })
+}
+
+export function searchUserPPT(filterWords) {
+  return request({
+    url: '/ppt/search/user',
+    method: 'get',
+    params: {
+      filter_words: filterWords,
     }
   })
 }
