@@ -1,10 +1,15 @@
 <template>
   <div class="file-row" @click="goto_pptist">
-    <t-row  >
-      <t-col :span="8">
-        <div class="file-name">{{ filenameWithoutSuffix }}</div>
+    <t-row :style="{ width: '100%' }">
+      <t-col :span="12">
+        <t-tooltip
+          :content="filenameWithoutSuffix"
+          theme="primary">
+          <div class="file-name">{{ filenameWithoutSuffix }}</div>
+        </t-tooltip>
+        
       </t-col>
-      <t-col :span="8">
+      <t-col :span="12">
         <div class="file-update-time">{{ updateTime | formatDate }}</div>
       </t-col>
     </t-row>
@@ -90,11 +95,6 @@ export default {
   font-weight: bold;
   cursor: pointer;
   color: #333;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
-
-.file-update-time {
-  text-align: center;
-}
-
 </style>

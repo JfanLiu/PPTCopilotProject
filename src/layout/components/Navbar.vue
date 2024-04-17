@@ -3,38 +3,27 @@
     <div class="left-nav">
       <div class="dashboard-container">
         <img src="https://github.com/rumengkai/awesome-vue/assets/91320586/83f64d27-20a7-42e7-b6a4-30d828ff4365" 
-          class="user-avatar1" @click="handlegotoIndex" />
+          class="user-avatar1" @click="handlegotoDashboard" />
         <span class="homepage" @click="handlegotoDashboard">Dashboard</span>
       </div>
     </div>
 
     <div class="right-nav">
       <div class="avatar-wrapper">
-        <t-space align="center" :separator="separator">
-          <!-- <t-input 
-            v-model="filter_words"
+        <t-space align="center">
+          <t-input
+            v-model="search_msg"
             placeholder="搜索PPT"
             :status="searchStatus"
             :tips="searchTips"
             :style="{ width: '400px' }"
-            @focus="is_focused=1"
-            @blur="is_focused=0"
+            @focus="is_focused = 1"
+            @blur="is_focused = 0"
             @enter="handleSearch">
             <template #suffixIcon>
               <SearchIcon :style="{ cursor: 'pointer' }" @click="handleSearch" />
             </template>
-          </t-input> -->
-          <!-- <t-input 
-            placeholder="搜索PPT"
-            :style="{ width: '400px' }">
-            <template #suffixIcon>
-              <SearchIcon :style="{ cursor: 'pointer' }" @click="handleSearch" />
-            </template>
-          </t-input> -->
-          <t-button variant="outline" theme="primary" @click="handlegotoSearch" round>
-            <SearchIcon slot="icon" />
-            搜索
-          </t-button>
+          </t-input>
           <t-button variant="outline" theme="primary" @click="handlegotoProjects" round>
             <HomeIcon slot="icon" />
             我的作品
@@ -67,9 +56,8 @@ export default {
   data() {
     return {
       is_focused: 0,
-      filter_words: "",
-      img_url: "",
-      page_name: "Home Page",
+      search_msg: "",
+      img_url: ""
     };
   },
   created() {
@@ -83,45 +71,24 @@ export default {
   computed: {
     ...mapGetters(["sidebar", "avatar", "id"]),
     searchStatus() {
-      return (this.is_focused && this.filter_words.trim() === '') ? 'error' : ''
+      return (this.is_focused && this.search_msg.trim() === '') ? 'error' : ''
     },
     searchTips() {
-      return (this.is_focused && this.filter_words.trim() === '') ? '请输入PPT名称' : ''
+      return (this.is_focused && this.search_msg.trim() === '') ? '请输入PPT名称' : ''
     },
   },
   methods: {
     handlegotoDashboard() {
       this.$router.push("/around/index");
     },
-    handlegotoSearch() {
-      this.$router.push("/index");
-    },
-    // searchProjectsHandler() {
-    //   if (!this.filterWords) {
-    //     this.$message.error('请输入搜索关键字')
-    //     return
-    //   }
-      
-    // },
     handleSearch() {
       this.$router.push("/around/index");
 
-      searchProjects(this.filter_words).then((res) => {
-        console.log('response')
-        // console.log(res)
-        // this.totalResults = res.data.length
-        // this.totalProjects = res.data
-        // this.projects = res.data.slice(0, this.pageSize)
-        // eventBus.$emit('get-search-ppt', res.data === null ? [] : res.data)
-        console.log('搜索PPT完成，关键词为', this.filter_words)
+      searchProjects(this.search_msg).then((res) => {
+        eventBus.$emit('get-search-ppt', res.data === null ? [] : res.data)
       }).catch((err) => {
         console.log(err)
       })
-      // try {
-        
-      // } catch (error) {
-      //   this.$message.error('搜索失败，请稍后再试')
-      // }
     },
     handlegotoProjects() {
       this.$router.push("/project/index");
